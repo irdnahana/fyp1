@@ -3,11 +3,11 @@ import pandas as pd
 import streamlit as st
 
 # Show the page title and description.
-st.set_page_config(page_title="Movies dataset", page_icon="🎬")
-st.title("🎬 Movies dataset")
+st.set_page_config(page_title="Movies dataset", page_icon="🛢️")
+st.title("🛢️ Crude Oil Dataset")
 st.write(
     """
-    This app visualizes data from [The Movie Database (TMDB)](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata).
+    This app visualizes data from the WTI Futures Oil Prices.
     It shows which movie genre performed best at the box office over the years. Just 
     click on the widgets below to explore!
     """
