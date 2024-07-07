@@ -24,31 +24,35 @@ def load_data():
 
 df = load_data()
 
+"""
 # Show a multiselect widget with the genres using `st.multiselect`.
 genres = st.multiselect(
     "Genres",
     df.genre.unique(),
     ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"],
 )
+"""
 
 # Show a slider widget with the years using `st.slider`.
 years = st.slider("Date", 1990, 2024, (2000, 2016))
 
 # Filter the dataframe based on the widget input and reshape it.
-df_filtered = df[(df["genre"].isin(genres)) & (df["year"].between(years[0], years[1]))]
+df_filtered = df[((df["Date"].between(years[0], years[1])]
 df_reshaped = df_filtered.pivot_table(
-    index="year", columns="genre", values="gross", aggfunc="sum", fill_value=0
+    index="Date", values="Price", aggfunc="sum", fill_value=0
+    #index="Date", columns="genre", values="gross", aggfunc="sum", fill_value=0
 )
-df_reshaped = df_reshaped.sort_values(by="year", ascending=False)
+df_reshaped = df_reshaped.sort_values(by="Date", ascending=False)
 
 
 # Display the data as a table using `st.dataframe`.
 st.dataframe(
     df_reshaped,
     use_container_width=True,
-    column_config={"year": st.column_config.TextColumn("Year")},
+    column_config={"year": st.column_config.TextColumn("Date")},
 )
 
+"""
 # Display the data as an Altair chart using `st.altair_chart`.
 df_chart = pd.melt(
     df_reshaped.reset_index(), id_vars="year", var_name="genre", value_name="gross"
@@ -64,3 +68,4 @@ chart = (
     .properties(height=320)
 )
 st.altair_chart(chart, use_container_width=True)
+"""
