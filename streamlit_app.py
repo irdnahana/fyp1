@@ -26,7 +26,7 @@ def load_data():
 
 df = load_data()
 
-fig = px.line(df, x = df['Date'], y =['Price'], title="Price of Crude Oil over the Years")
+fig = px.line(df, x = df['Date'], y = df['Price'], title="Price of Crude Oil over the Years")
 st.plotly_chart(fig)
 
 """
