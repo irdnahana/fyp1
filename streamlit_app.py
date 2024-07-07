@@ -36,6 +36,8 @@ with pricing_data:
     st.write(df)
     annual_return = df["Change %"].mean()*252*100
     st.write("Annual return is ", annual_return, "%")
+    stdev = np.std(df["Change %"])*np.sqrt(252)*100
+    st.write("Standard Deviation is ", stdev, "%")
 
 with fundamental_data:
     st.write("Fundamental")
