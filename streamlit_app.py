@@ -26,9 +26,7 @@ def load_data():
 
 df = load_data()
 
-date = st.slider("Date", 1990, 2024, (2000, 2016))
-
-fig = px.line(df, x = df['Date'].between(date[0], date[1]), y = df['Price'], title="Price of Crude Oil over the Years")
+fig = px.line(df, x = df['Date'].between(start_date, end_date), y = df['Price'], title="Price of Crude Oil over the Years")
 st.plotly_chart(fig)
 
 pricing_data, fundamental_data, news = st.tabs(["Pricing Data", "Fundamental Data", "Top 10 News"])
