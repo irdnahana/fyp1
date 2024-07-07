@@ -34,6 +34,8 @@ pricing_data, fundamental_data, news = st.tabs(["Pricing Data", "Fundamental Dat
 with pricing_data:
     st.header("Price Movement")
     st.write(df)
+    annual_return = df["Change %"].mean()*252*100
+    st.write("Annual return is ", annual_return, "%")
 
 with fundamental_data:
     st.write("Fundamental")
