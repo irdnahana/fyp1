@@ -3,12 +3,12 @@ import pandas as pd
 import streamlit as st
 
 # Show the page title and description.
-st.set_page_config(page_title="Movies dataset", page_icon="🛢️")
+st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
 st.title("🛢️ Crude Oil Dataset")
 st.write(
     """
     This app visualizes data from the WTI Futures Oil Prices.
-    It shows which movie genre performed best at the box office over the years. Just 
+    It shows the price of the WTI Crude Oil over the years. Just 
     click on the widgets below to explore!
     """
 )
