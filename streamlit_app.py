@@ -26,7 +26,10 @@ def load_data():
 
 df = load_data()
 
-fig = px.line(df, x = df.index.between(start_date, end_date), y = df['Price'], title="Price of Crude Oil over the Years")
+df["Date"] = pd.date_range('1990-1-1', periods=8760, freq='D')
+df = df.set_index(["Date"])
+
+fig = px.line(df, x = df["Date"].loc[start_date:end_date], y = df['Price'], title="Price of Crude Oil over the Years")
 st.plotly_chart(fig)
 
 pricing_data, fundamental_data, news = st.tabs(["Pricing Data", "Fundamental Data", "Top 10 News"])
