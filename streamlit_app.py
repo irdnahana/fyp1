@@ -1,10 +1,12 @@
 import altair as alt
 import pandas as pd
+import numpy as np
+import plotly.express as px
 import streamlit as st
 
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
-st.title("🛢️ Crude Oil Dataset")
+st.title("🛢️ Crude Oil Dashboard")
 st.write(
     """
     This app visualizes data from the WTI Futures Oil Prices.
@@ -12,7 +14,8 @@ st.write(
     click on the widgets below to explore!
     """
 )
-
+start_date = st.sidebar.date_input('Start Date')
+end_date = st.sidebar.date_input('End Date')
 
 # Load the data from a CSV. We're caching this so it doesn't reload every time the app
 # reruns (e.g. if the user interacts with the widgets).
@@ -21,8 +24,10 @@ def load_data():
     df = pd.read_csv("data/crude oil WTI 1990 - 2024.csv")
     return df
 
-
 df = load_data()
+
+fig = px.line(df, x = df['Date'], y =['Price'], title="Price of Crude Oil over the Years")
+st.plotly_chart(fig)
 
 """
 # Show a multiselect widget with the genres using `st.multiselect`.
@@ -31,7 +36,7 @@ genres = st.multiselect(
     df.genre.unique(),
     ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"],
 )
-"""
+
 
 # Show a slider widget with the years using `st.slider`.
 date = st.slider("Date", 1990, 2024, (2000, 2016))
@@ -52,7 +57,7 @@ st.dataframe(
     column_config={"year": st.column_config.TextColumn("Date")},
 )
 
-"""
+
 # Display the data as an Altair chart using `st.altair_chart`.
 df_chart = pd.melt(
     df_reshaped.reset_index(), id_vars="year", var_name="genre", value_name="gross"
