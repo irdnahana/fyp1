@@ -37,7 +37,7 @@ genres = st.multiselect(
 years = st.slider("Date", 1990, 2024, (2000, 2016))
 
 # Filter the dataframe based on the widget input and reshape it.
-df_filtered = df[((df["Date"].between(years[0], years[1])]
+df_filtered = df[df["Date"].between(years[0], years[1])]
 df_reshaped = df_filtered.pivot_table(
     index="Date", values="Price", aggfunc="sum", fill_value=0
     #index="Date", columns="genre", values="gross", aggfunc="sum", fill_value=0
