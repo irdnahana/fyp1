@@ -26,8 +26,8 @@ def load_data():
 
 df = load_data()
 
-df["Date"] = pd.date_range('1990-1-1', periods=8760, freq='D')
-df = df.set_index(["Date"])
+#df["Date"] = pd.date_range('1990-1-1', periods=8760, freq='D')
+#df = df.set_index(["Date"])
 
 #data2 = df.loc[start_date:end_date]
 
