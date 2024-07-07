@@ -29,6 +29,17 @@ df = load_data()
 fig = px.line(df, x = df['Date'], y = df['Price'], title="Price of Crude Oil over the Years")
 st.plotly_chart(fig)
 
+pricing_data, fundamental_data, news = st.tabs(["Pricing Data", "Fundamental Data", "Top 10 News"])
+
+with pricing_data:
+    st.header("Price Movement")
+    st.write(df)
+
+with fundamental_data:
+    st.write("Fundamental")
+
+with news:
+    st.write("News")
 """
 # Show a multiselect widget with the genres using `st.multiselect`.
 genres = st.multiselect(
