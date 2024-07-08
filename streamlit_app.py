@@ -6,7 +6,7 @@ import streamlit as st
 import calendar
 from keras.models import load_model
 import pickle
-
+ 
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
 st.title("🛢️ WTI Crude Oil Prices Dashboard")
