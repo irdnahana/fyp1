@@ -25,40 +25,24 @@ def load_data():
 df = load_data()
 
 st.sidebar.header("User Input")
-year = st.sidebar.selectbox("Select Year", range(1990,2025))
-month = st.sidebar.selectbox("Select Month", range(1,13))
-date = st.sidebar.date_input("Select Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-06-01"))
+start_date = st.sidebar.date_input("Select Start Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
+end_date = st.sidebar.date_input("Select End Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
-# filter by selected year
-yearly_data = df[df['Date'].dt.year == year]
-monthly_data = yearly_data[yearly_data['Date'].dt.month == month]
+# filter data by selected date range
+date_range_data = df[(df['Date'] >= pd.to_datetime(start_date)) & (df['Date'] <= pd.to_datetime(end_date))]
 
-# show data for selected date
-date_data = df[df['Date'] == pd.to_datetime(date)]
+# Display the data
+st.subheader(f"WTI Crude Oil Prices from {start_date} to {end_date}")
+st.line_chart(date_range_data.set_index('Date')['Price'])
 
-# display the data
-st.subheader(f"WTI Crude Oil Prices for {year}")
-st.line_chart(yearly_data.set_index('Date')['Price'])
-
-# display average prices
-if not monthly_data.empty:
-    avg_yearly_price = yearly_data['Price'].mean()
-    avg_monthly_price = monthly_data['Price'].mean()
-
-    st.write(f"Average price for {year}: ${avg_yearly_price:.2f}")
-    st.write(f"Average price for {month}/{year}: ${avg_monthyly_price:.2f}")
-
+# Display average price for the selected date range
+if not date_range_data.empty:
+    avg_price = date_range_data['Price'].mean()
+    st.write(f"Average price from {start_date} to {end_date}: ${avg_price:.2f}")
 else:
-    st.write(f"No data available for {month}/{year}")
+    st.write(f"No data available for the selected date range")
 
-# display price for selected date
-if not date_data.empty:
-    st.write(f"Price on {date}: ${date_data['Price'].values[0]:.2f}")
-
-else:
-    st.write(f"No data available for {date}")
-
-# display raw data
+# Display raw data
 st.subheader("Raw Data")
 st.write(df)
 
