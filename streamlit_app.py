@@ -19,7 +19,7 @@ st.write(
 @st.cache_data
 def load_data():
     df = pd.read_csv("data/crude oil WTI 1990 - 2024.csv", parse_dates=['Date'])
-    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+    df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', errors='coerce')
     return df
 
 df = load_data()
