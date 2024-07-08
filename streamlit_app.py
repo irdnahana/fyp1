@@ -76,7 +76,8 @@ st.write(df)
 
 # Prediction section
 st.sidebar.header("Price Prediction")
-selected_date_for_prediction = st.sidebar.date_input("Select Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
+start_date_for_prediction = st.sidebar.date_input("Select Start Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
+end_date_for_prediction = st.sidebar.date_input("Select End Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
 # Function to prepare data for prediction
 def prepare_data_for_prediction(date, data, scaler):
