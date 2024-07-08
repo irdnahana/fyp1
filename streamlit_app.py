@@ -4,6 +4,8 @@ import numpy as np
 import plotly.express as px
 import streamlit as st
 import calendar
+from keras.models import load_model
+import pickle
 
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
@@ -73,70 +75,26 @@ st.bar_chart(monthly_avg)
 st.subheader("Raw Data")
 st.write(df)
 
+# Prediction section
+st.sidebar.header("Price Prediction")
+selected_date_for_prediction = st.sidebar.date_input("Select Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
-############################################################################
-#df["Date"] = pd.date_range('1990-1-1', periods=8760, freq='D')
-#df = df.set_index(["Date"])
+# Function to prepare data for prediction
+def prepare_data_for_prediction(date, data, scaler):
+    # Example of how to prepare data for prediction
+    # This will depend on your model's input requirements
+    # Here we just use the last available data point for simplicity
+    last_known_data = df[df['Date'] < pd.to_datetime(date)].tail(1)
+    if last_known_data.empty:
+        st.write("Not enough data to make a prediction")
+        return None
+    last_known_price = last_known_data['Price'].values
+    scaled_data = scaler.transform(last_known_price.reshape(-1, 1))
+    return np.array([scaled_data])
 
-#data2 = df.loc[start_date:end_date]
-
-fig = px.line(df, x = df['Date'], y = df['Price'], title="Price of Crude Oil over the Years")
-st.plotly_chart(fig)
-
-pricing_data, fundamental_data, news = st.tabs(["Pricing Data", "Fundamental Data", "Top 10 News"])
-
-with pricing_data:
-    st.header("Price Movement")
-    st.write(df)
-
-
-with fundamental_data:
-    st.write("Fundamental")
-
-with news:
-    st.write("News")
-"""
-# Show a multiselect widget with the genres using `st.multiselect`.
-genres = st.multiselect(
-    "Genres",
-    df.genre.unique(),
-    ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"],
-)
-
-
-# Show a slider widget with the years using `st.slider`.
-date = st.slider("Date", 1990, 2024, (2000, 2016))
-
-# Filter the dataframe based on the widget input and reshape it.
-df_filtered = df[df["Date"].between(date[0], date[1])]
-df_reshaped = df_filtered.pivot_table(
-    index="Date", values="Price", aggfunc="sum", fill_value=0
-    #index="Date", columns="genre", values="gross", aggfunc="sum", fill_value=0
-)
-df_reshaped = df_reshaped.sort_values(by="Date", ascending=False)
-
-
-# Display the data as a table using `st.dataframe`.
-st.dataframe(
-    df_reshaped,
-    use_container_width=True,
-    column_config={"year": st.column_config.TextColumn("Date")},
-)
-
-
-# Display the data as an Altair chart using `st.altair_chart`.
-df_chart = pd.melt(
-    df_reshaped.reset_index(), id_vars="year", var_name="genre", value_name="gross"
-)
-chart = (
-    alt.Chart(df_chart)
-    .mark_line()
-    .encode(
-        x=alt.X("year:N", title="Year"),
-        y=alt.Y("gross:Q", title="Gross earnings ($)"),
-        color="genre:N",
-    )
-    .properties(height=320)
-)
-st.altair_chart(chart, use_container_width=True)
-"""
+if st.sidebar.button("Predict"):
+    prediction_data = prepare_data_for_prediction(selected_date_for_prediction, df, scaler)
+    if prediction_data is not None:
+        prediction = model.predict(prediction_data)
+        predicted_price = scaler.inverse_transform(prediction)[0][0]
+        st.write(f"Predicted price for {selected_date_for_prediction}: ${predicted_price:.2f}")
