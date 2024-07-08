@@ -4,7 +4,6 @@ import numpy as np
 import plotly.express as px
 import streamlit as st
 import calendar
-from tensorflow.keras.models import load_model
 import pickle
  
 # Show the page title and description.
