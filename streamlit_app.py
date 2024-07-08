@@ -6,25 +6,60 @@ import streamlit as st
 
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
-st.title("🛢️ Crude Oil Dashboard")
+st.title("🛢️ WTI Crude Oil Prices Dashboard")
 st.write(
     """
     This app visualizes data from the WTI Futures Oil Prices.
-    It shows the price of the WTI Crude Oil over the years. Just 
-    click on the widgets below to explore!
+    It shows the price of the WTI Crude Oil over the years.
     """
 )
-start_date = st.sidebar.date_input('Start Date')
-end_date = st.sidebar.date_input('End Date')
 
 # Load the data from a CSV. We're caching this so it doesn't reload every time the app
 # reruns (e.g. if the user interacts with the widgets).
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/crude oil WTI 1990 - 2024.csv")
+    df = pd.read_csv("data/crude oil WTI 1990 - 2024.csv", parse_dates=['Date'])
     return df
 
 df = load_data()
+
+st.sidebar.header("User Input")
+year = st.sidebar.selectbox("Select Year", range(1990,2025))
+month = st.sidebar.selectbox("Select Month", range(1,13))
+date = st.sidebar.date_input("Select Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-06-01"))
+
+# filter by selected year
+yearly_data = df[df['Date'].dt.year == year]
+monthly_data = yearly_data[yearly_data['Date'].dt.month == month]
+
+# show data for selected date
+date_data = df[df['Date'] == pd.to_datetime(date)]
+
+# display the data
+st.subheader(f"WTI Crude Oil Prices for {year}")
+st.line_chart(yearly_data.set_index('Date')['Price'])
+
+# display average prices
+if not monthly_data.empty:
+    avg_yearly_price = yearly_data['Price'].mean()
+    avg_monthly_price = monthly_data['Price'].mean()
+
+    st.write(f"Average price for {year}: ${avg_yearly_price:.2f}")
+    st.write(f"Average price for {month}/{year}: ${avg_monthyly_price:.2f}")
+
+else:
+    st.write(f"No data available for {month}/{year}")
+
+# display price for selected date
+if not date_data.empty:
+    st.write(f"Price on {date}: ${date_data['Price'].values[0]:.2f}")
+
+else:
+    st.write(f"No data available for {date}")
+
+# display raw data
+st.subheader("Raw Data")
+st.write(df)
 
 #df["Date"] = pd.date_range('1990-1-1', periods=8760, freq='D')
 #df = df.set_index(["Date"])
