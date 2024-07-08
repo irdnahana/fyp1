@@ -57,13 +57,21 @@ year_data = df[df['Date'].dt.year == selected_year]
 # Calculate monthly averages
 monthly_avg = year_data.groupby(year_data['Date'].dt.month)['Price'].mean()
 
-# Map month numbers to month names and sort by calendar order
+# Map month numbers to month names
 monthly_avg.index = monthly_avg.index.map(lambda x: calendar.month_name[x])
-monthly_avg = monthly_avg.reindex(list(calendar.month_name[1:]))
+
+# Convert index to a categorical type with the correct order
+months = list(calendar.month_name[1:])
+monthly_avg.index = pd.CategoricalIndex(monthly_avg.index, categories=months, ordered=True)
+monthly_avg = monthly_avg.sort_index()
 
 # Display the bar chart
 st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
 st.bar_chart(monthly_avg)
+
+# Display raw data
+st.subheader("Raw Data")
+st.write(df)
 
 
 ############################################################################
