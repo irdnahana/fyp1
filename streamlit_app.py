@@ -46,6 +46,22 @@ else:
 st.subheader("Raw Data")
 st.write(df)
 
+# create a new section for the bar chart
+st.sidebar.header("Monthly Average Prices")
+selected_year = st.sidebar.selectbox("Select Year for Monthly Averages", range(1990, 2024))
+
+# Filter data for the selected year
+year_data = df[df['Date'].dt.year == selected_year]
+
+# Calculate monthly averages
+monthly_avg = year_data.groupby(year_data['Date'].dt.month)['Price'].mean()
+
+# Display the bar chart
+st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
+st.bar_chart(monthly_avg)
+
+
+############################################################################
 #df["Date"] = pd.date_range('1990-1-1', periods=8760, freq='D')
 #df = df.set_index(["Date"])
 
