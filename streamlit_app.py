@@ -39,7 +39,7 @@ st.line_chart(date_range_data.set_index('Date')['Price'])
 # Display average price for the selected date range
 if not date_range_data.empty:
     avg_price = date_range_data['Price'].mean()
-    st.write(f"Average price from {start_date} to {end_date}: ${avg_price:.2f}")
+    st.write(f"Average price from {start_date} to {end_date}: $", avg_price)
     annual_return = date_range_data["Change %"].mean()*252*100
     st.write("Annual return is ", annual_return, "%")
     stdev = np.std(date_range_data["Change %"])*np.sqrt(252)*100
