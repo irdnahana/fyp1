@@ -5,6 +5,7 @@ import plotly.express as px
 import streamlit as st
 import calendar
 import pickle
+from tensorflow.keras.models import load_model
  
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
@@ -80,14 +81,13 @@ start_date_for_prediction = st.sidebar.date_input("Select Start Date for Predict
 end_date_for_prediction = st.sidebar.date_input("Select End Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
 # Load the model
-with open('best_model (1)', 'rb') as file:
- model = pickle.load(file)
+model = load_model('best_model (1).keras')
 
-# Date input for the user to select the data range#
+# Date input for the user to select the data range
 start_date_prediction = st.date_input("Start data", value=df['Date'].min())
 end_date_prediction = st.date_input("End date", value=df['Date'].max())
 
-# filter the dataframe based on the selected date range
+# filter the dataframe based on the selected date range 
 filtered_df = df[(df['Date'] >= pd.to_datetime(start_date_prediction)) & (df['Date'] <= pd.to_datetime(end_date_prediction))]
 
 # button to trigger prediction
@@ -105,8 +105,6 @@ if st.button("Predict"):
   st.write("No data available for the selected data range.")
 
 
-
-#######################################################################
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
     # Example of how to prepare data for prediction
