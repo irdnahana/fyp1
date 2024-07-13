@@ -79,22 +79,50 @@ st.sidebar.header("Price Prediction")
 start_date_for_prediction = st.sidebar.date_input("Select Start Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 end_date_for_prediction = st.sidebar.date_input("Select End Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
+# Load the model
+with open('best_model (1)', 'rb') as file:
+ model = pickle.load(file)
+
+# Date input for the user to select the data range#
+start_date_prediction = st.date_input("Start data", value=df['Date'].min())
+end_date_prediction = st.date_input("End date", value=df['Date'].max())
+
+# filter the dataframe based on the selected date range
+filtered_df = df[(df['Date'] >= pd.to_datetime(start_date_prediction)) & (df['Date'] <= pd.to_datetime(end_date_prediction))]
+
+# button to trigger prediction
+if st.button("Predict"):
+ # ensure the filtered dataframe is not empty
+ if not filtered_df.empty():
+  # Assuming your model expects the features as input
+  features = filtered_df.drop(columns=['Date', 'Price'])
+  predictions = model.predict(features)
+  # Add predictions to the filtered dataframe #
+  filtred_df['Prediction'] = predictions
+  st.write("Predictions for the selected data range: ")
+  st.write(filtered_df[['Date', 'Predictions']])
+ else:
+  st.write("No data available for the selected data range.")
+
+
+
+#######################################################################
 # Function to prepare data for prediction
-def prepare_data_for_prediction(date, data, scaler):
+#def prepare_data_for_prediction(date, data, scaler):
     # Example of how to prepare data for prediction
     # This will depend on your model's input requirements
     # Here we just use the last available data point for simplicity
-    last_known_data = df[df['Date'] < pd.to_datetime(date)].tail(1)
-    if last_known_data.empty:
-        st.write("Not enough data to make a prediction")
-        return None
-    last_known_price = last_known_data['Price'].values
-    scaled_data = scaler.transform(last_known_price.reshape(-1, 1))
-    return np.array([scaled_data])
+ #   last_known_data = df[df['Date'] < pd.to_datetime(date)].tail(1)
+  #  if last_known_data.empty:
+   #     st.write("Not enough data to make a prediction")
+    #    return None
+    #last_known_price = last_known_data['Price'].values
+    #scaled_data = scaler.transform(last_known_price.reshape(-1, 1))
+    #return np.array([scaled_data])
 
-if st.sidebar.button("Predict"):
-    prediction_data = prepare_data_for_prediction(selected_date_for_prediction, df, scaler)
-    if prediction_data is not None:
-        prediction = model.predict(prediction_data)
-        predicted_price = scaler.inverse_transform(prediction)[0][0]
-        st.write(f"Predicted price for {selected_date_for_prediction}: ${predicted_price:.2f}")
+#if st.sidebar.button("Predict"):
+ #   prediction_data = prepare_data_for_prediction(selected_date_for_prediction, df, scaler)
+  #  if prediction_data is not None:
+   #     prediction = model.predict(prediction_data)
+    #    predicted_price = scaler.inverse_transform(prediction)[0][0]
+     #   st.write(f"Predicted price for {selected_date_for_prediction}: ${predicted_price:.2f}")
