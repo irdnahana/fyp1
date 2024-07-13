@@ -5,7 +5,9 @@ import plotly.express as px
 import streamlit as st
 import calendar
 import pickle
-from tensorflow.keras.models import load_model
+import tensorflow as tf
+from tensorflow.keras.models import load_model, Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
  
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
