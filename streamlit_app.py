@@ -81,7 +81,7 @@ start_date_for_prediction = st.sidebar.date_input("Select Start Date for Predict
 end_date_for_prediction = st.sidebar.date_input("Select End Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
 # Load the model
-model = load_model('best_model.h5')
+model = tf.keras.models.load_model('best_model.h5')
 
 # Date input for the user to select the data range
 start_date_prediction = st.date_input("Start data", value=df['Date'].min())
