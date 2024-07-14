@@ -81,8 +81,8 @@ st.write(df)
 ################### PREDICTION #####################
 
 def preprocess_data(data):
-  feature_cols = ['Open', 'High', 'Low', 'Vol.', 'Change %']
-  target_col = ['Price']
+  feature_cols = data[['Open', 'High', 'Low', 'Vol.', 'Change %']]
+  target_col = data['Price']
   scaler = MinMaxScaler()
   scaled_data = scaler.fit_transform(data[feature_cols + [target_col]])
 
