@@ -1,3 +1,4 @@
 streamlit
 plotly
 tensorflow==2.15.0
+sklearn
