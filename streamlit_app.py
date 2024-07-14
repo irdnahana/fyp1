@@ -26,6 +26,8 @@ st.write(
 def load_data():
     df = pd.read_csv("data/crude oil WTI 1990 - 2024.csv", parse_dates=['Date'])
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', errors='coerce')
+    df.set_index('Date', inplace=True)
+    df.index = pd.DatetimeIndex(dataset.index).to_period('B').to_timestamp()
     return df
 
 df = load_data()
@@ -87,15 +89,21 @@ def preprocess_data(data):
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(data[feature_cols + [target_col]])
     
-    x = []
-    y = []
+    x = scaled_dataset[:, 1:]
+    y = scaled_dataset[:, 0]
     
-    for i in range(30, len(scaled_data)):
-        x.append(scaled_data[i-30:i, :-1])  # Use all but the last column for X (features)
-        y.append(scaled_data[i, -1])  # Use the last column for y (target)
-    
-    x, y = np.array(x), np.array(y).reshape(-1, 1)  # Ensure y is 2D array for correct shape
     return x, y, scaler
+
+def create_sequence:
+    sequences = []
+    for i in range(len(scaled_data) - 15):
+        sequences.append(data[i:i + 15])
+    return np.array(sequences)
+
+def reshape_for_lstm(x, y):
+    x_reshaped = x.reshape((x.shape[0], x.shape[1], x.shape[2]))
+    y_reshaped = y[:, -1]
+    return x_reshaped, y_reshaped
 
 def make_predictions(model, x):
     predictions = model.predict(x)
@@ -109,15 +117,20 @@ def inverse_transform_predictions(predictions, scaler):
 
 # Preprocess the data
 x, y, scaler = preprocess_data(df)
+x_seq = create_sequence(x)
+y_seq = create_sequence(y)
+x_lstm = reshape_for_lstm(x_seq)
+y_lstm = reshape_for_lstm(y_seq)
+
 st.subheader('Preprocessed Data')
-st.write(f'X shape: {x.shape}')
+st.write(f'x shape: {x.shape}')
 st.write(f'y shape: {y.shape}')
 
 # Load the trained model
 model = load_model('best_model.h5')
 
 # Make predictions
-predictions = make_predictions(model, x)
+predictions = make_predictions(model, x_lstm)
 
 # Inverse transform predictions
 original_predictions = inverse_transform_predictions(predictions, scaler)
