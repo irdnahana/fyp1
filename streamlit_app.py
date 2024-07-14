@@ -133,31 +133,8 @@ comparison_df = pd.DataFrame({
     }, index=data.index[30:])
 st.line_chart(comparison_df)
 
-''''
-# Prediction section
-st.sidebar.header("Price Prediction")
-start_date_for_prediction = st.sidebar.date_input("Select Start Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
-end_date_for_prediction = st.sidebar.date_input("Select End Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
-# Date input for the user to select the data range
-start_date_prediction = st.date_input("Start data", value=df['Date'].min())
-end_date_prediction = st.date_input("End date", value=df['Date'].max())
 
-# filter the dataframe based on the selected date range 
-filtered_df = df[(df['Date'] >= pd.to_datetime(start_date_prediction)) & (df['Date'] <= pd.to_datetime(end_date_prediction))]
-
-# button to trigger prediction
-if st.button("Predict"):
- # ensure the filtered dataframe is not empty
-  # Assuming your model expects the features as input
-  features = filtered_df.drop(columns=['Date', 'Price'])
-  predictions = model.predict(features)
-  # Add predictions to the filtered dataframe #
-  filtred_df['Prediction'] = predictions
-  st.write("Predictions for the selected data range: ")
-  st.write(filtered_df[['Date', 'Predictions']])
-else:
-  st.write("No data available for the selected data range.")
 
 
 # Function to prepare data for prediction
