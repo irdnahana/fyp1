@@ -45,9 +45,9 @@ st.line_chart(date_range_data.set_index('Date')['Price'])
 if not date_range_data.empty:
     avg_price = date_range_data['Price'].mean()
     st.write(f"Average price from {start_date} to {end_date}: $", avg_price)
-    annual_return = date_range_data["Change %"].mean()*252*100
+    annual_return = date_range_data["Change %"].mean() * 252 * 100
     st.write("Annual return is ", annual_return, "%")
-    stdev = np.std(date_range_data["Change %"])*np.sqrt(252)*100
+    stdev = np.std(date_range_data["Change %"]) * np.sqrt(252) * 100
     st.write("Standard Deviation is ", stdev, "%")
 else:
     st.write(f"No data available for the selected date range")
@@ -94,7 +94,7 @@ def preprocess_data(data):
         x.append(scaled_data[i-30:i, :-1])  # Use all but the last column for X (features)
         y.append(scaled_data[i, -1])  # Use the last column for y (target)
     
-    x, y = np.array(x), np.array(y)
+    x, y = np.array(x), np.array(y).reshape(-1, 1)  # Ensure y is 2D array for correct shape
     return x, y, scaler
 
 def make_predictions(model, x):
@@ -103,7 +103,7 @@ def make_predictions(model, x):
 
 def inverse_transform_predictions(predictions, scaler):
     scaled_predictions = np.zeros((predictions.shape[0], 6))  # Assuming 6 feature columns
-    scaled_predictions[:, -1] = predictions  # Assuming 'price' is the target column
+    scaled_predictions[:, -1] = predictions[:, 0]  # Assuming 'price' is the target column
     original_predictions = scaler.inverse_transform(scaled_predictions)
     return original_predictions[:, -1]
 
@@ -134,7 +134,6 @@ comparison_df = pd.DataFrame({
     'Predicted': original_predictions
 }, index=df.index[30:])
 st.line_chart(comparison_df)
-
 
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
