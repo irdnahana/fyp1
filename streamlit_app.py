@@ -92,6 +92,9 @@ def preprocess_data(data):
   for i in range(30, len(scaled_data)):
     x.append(scaled_data[i-30:i])
     y.append(scaled_data[i, 3])
+   
+  x, y = np.array(x), np.array(y)
+  return x, y, scaler
 
 def make_predictions(model, x):
   predictions = model.predict(x)
