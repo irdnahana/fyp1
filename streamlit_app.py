@@ -8,6 +8,7 @@ import pickle
 import tensorflow as tf
 from tensorflow.keras.models import load_model, Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
+from sklearn.preprocessing import MinMaxScaler
  
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
@@ -77,13 +78,66 @@ st.bar_chart(monthly_avg)
 st.subheader("Raw Data")
 st.write(df)
 
+################### PREDICTION #####################
+
+def preprocess_data(data):
+  feature_cols = ['Open', 'High', 'Low', 'Vol.', 'Change %']
+  target_col = ['Price']
+  scaler = MinMaxScaler()
+  scaled_data = scaler.fit_transform(data[feature_cols + [target_col]])
+
+  x = []
+  y = []
+
+  for i in range(30, len(scaled_data)):
+    x.append(scaled_data[i-30:i])
+    y.append(scaled_data[i, 3])
+
+def make_predictions(model, x):
+  predictions = model.predict(x)
+  retiurn predictions
+
+def inverse_transform_predictions(predictions, scaler):
+    scaled_predictions = np.zeros((predictions.shape[0], 6))  # Assuming 6 feature columns
+    scaled_predictions[:, -1] = predictions  # Assuming 'price' is the target column
+    original_predictions = scaler.inverse_transform(scaled_predictions)
+    return original_predictions[:, -1]
+
+# Main function to run the Streamlit app
+
+# Preprocess the data
+x, y, scaler = preprocess_data(df)
+st.subheader('Preprocessed Data')
+st.write(f'X shape: {x.shape}')
+st.write(f'y shape: {y.shape}')
+    
+# Load the trained model
+model = tf.keras.models.load_model('best_model.h5')
+
+# Make predictions
+predictions = make_predictions(model, x)
+
+# Inverse transform predictions
+original_predictions = inverse_transform_predictions(predictions, scaler)
+    
+# Display predictions
+st.subheader('Predictions')
+st.line_chart(original_predictions)
+    
+# Comparison with actual data
+actual_data = data['price'][30:].values  # Assuming 'price' is the target column
+st.subheader('Actual vs Predicted')
+comparison_df = pd.DataFrame({
+        'Actual': actual_data,
+        'Predicted': original_predictions
+    }, index=data.index[30:])
+st.line_chart(comparison_df)
+
+''''
 # Prediction section
 st.sidebar.header("Price Prediction")
 start_date_for_prediction = st.sidebar.date_input("Select Start Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 end_date_for_prediction = st.sidebar.date_input("Select End Date for Prediction", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
-
-# Load the model
-model = tf.keras.models.load_model('best_model.h5')
 
 # Date input for the user to select the data range
 start_date_prediction = st.date_input("Start data", value=df['Date'].min())
