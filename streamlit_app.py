@@ -91,8 +91,8 @@ def preprocess_data(data):
     y = []
     
     for i in range(30, len(scaled_data)):
-        x.append(scaled_data[i-30:i])
-        y.append(scaled_data[i, -1])  # Assuming 'Price' is the last column in the scaled_data
+        x.append(scaled_data[i-30:i, :-1])  # Use all but the last column for X (features)
+        y.append(scaled_data[i, -1])  # Use the last column for y (target)
     
     x, y = np.array(x), np.array(y)
     return x, y, scaler
@@ -134,7 +134,6 @@ comparison_df = pd.DataFrame({
     'Predicted': original_predictions
 }, index=df.index[30:])
 st.line_chart(comparison_df)
-
 
 
 # Function to prepare data for prediction
