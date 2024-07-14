@@ -9,7 +9,7 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model, Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from sklearn.preprocessing import MinMaxScaler
- 
+
 # Show the page title and description.
 st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
 st.title("🛢️ WTI Crude Oil Prices Dashboard")
@@ -34,7 +34,7 @@ st.sidebar.header("User Input")
 start_date = st.sidebar.date_input("Select Start Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 end_date = st.sidebar.date_input("Select End Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
-# filter data by selected date range
+# Filter data by selected date range
 date_range_data = df[(df['Date'] >= pd.to_datetime(start_date)) & (df['Date'] <= pd.to_datetime(end_date))]
 
 # Display the data
@@ -52,7 +52,7 @@ if not date_range_data.empty:
 else:
     st.write(f"No data available for the selected date range")
 
-# create a new section for the bar chart
+# Create a new section for the bar chart
 st.sidebar.header("Monthly Average Prices")
 selected_year = st.sidebar.selectbox("Select Year for Monthly Averages", range(1990, 2024))
 
@@ -81,24 +81,25 @@ st.write(df)
 ################### PREDICTION #####################
 
 def preprocess_data(data):
-  feature_cols = data[['Open', 'High', 'Low', 'Vol.', 'Change %']]
-  target_col = data['Price']
-  scaler = MinMaxScaler()
-  scaled_data = scaler.fit_transform(data[feature_cols + [target_col]])
-
-  x = []
-  y = []
-
-  for i in range(30, len(scaled_data)):
-    x.append(scaled_data[i-30:i])
-    y.append(scaled_data[i, 3])
-   
-  x, y = np.array(x), np.array(y)
-  return x, y, scaler
+    feature_cols = ['Open', 'High', 'Low', 'Vol.', 'Change %']
+    target_col = 'Price'
+    
+    scaler = MinMaxScaler()
+    scaled_data = scaler.fit_transform(data[feature_cols + [target_col]])
+    
+    x = []
+    y = []
+    
+    for i in range(30, len(scaled_data)):
+        x.append(scaled_data[i-30:i])
+        y.append(scaled_data[i, -1])  # Assuming 'Price' is the last column in the scaled_data
+    
+    x, y = np.array(x), np.array(y)
+    return x, y, scaler
 
 def make_predictions(model, x):
-  predictions = model.predict(x)
-  return predictions
+    predictions = model.predict(x)
+    return predictions
 
 def inverse_transform_predictions(predictions, scaler):
     scaled_predictions = np.zeros((predictions.shape[0], 6))  # Assuming 6 feature columns
@@ -106,37 +107,33 @@ def inverse_transform_predictions(predictions, scaler):
     original_predictions = scaler.inverse_transform(scaled_predictions)
     return original_predictions[:, -1]
 
-# Main function to run the Streamlit app
-
 # Preprocess the data
 x, y, scaler = preprocess_data(df)
 st.subheader('Preprocessed Data')
 st.write(f'X shape: {x.shape}')
 st.write(f'y shape: {y.shape}')
-    
+
 # Load the trained model
-model = tf.keras.models.load_model('best_model.h5')
+model = load_model('best_model.h5')
 
 # Make predictions
 predictions = make_predictions(model, x)
 
 # Inverse transform predictions
 original_predictions = inverse_transform_predictions(predictions, scaler)
-    
+
 # Display predictions
 st.subheader('Predictions')
 st.line_chart(original_predictions)
-    
+
 # Comparison with actual data
-actual_data = data['price'][30:].values  # Assuming 'price' is the target column
+actual_data = df['Price'][30:].values  # Assuming 'Price' is the target column
 st.subheader('Actual vs Predicted')
 comparison_df = pd.DataFrame({
-        'Actual': actual_data,
-        'Predicted': original_predictions
-    }, index=data.index[30:])
+    'Actual': actual_data,
+    'Predicted': original_predictions
+}, index=df.index[30:])
 st.line_chart(comparison_df)
-
-
 
 
 
