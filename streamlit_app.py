@@ -95,7 +95,6 @@ filtered_df = df[(df['Date'] >= pd.to_datetime(start_date_prediction)) & (df['Da
 # button to trigger prediction
 if st.button("Predict"):
  # ensure the filtered dataframe is not empty
- if not filtered_df.empty():
   # Assuming your model expects the features as input
   features = filtered_df.drop(columns=['Date', 'Price'])
   predictions = model.predict(features)
