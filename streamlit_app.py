@@ -94,9 +94,9 @@ def preprocess_data(data):
     
     return x, y, scaler
 
-def create_sequence:
+def create_sequence(data):
     sequences = []
-    for i in range(len(scaled_data) - 15):
+    for i in range(len(data) - 15):
         sequences.append(data[i:i + 15])
     return np.array(sequences)
 
