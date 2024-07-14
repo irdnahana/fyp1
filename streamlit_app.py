@@ -102,7 +102,7 @@ if st.button("Predict"):
   filtred_df['Prediction'] = predictions
   st.write("Predictions for the selected data range: ")
   st.write(filtered_df[['Date', 'Predictions']])
- else:
+else:
   st.write("No data available for the selected data range.")
 
 
