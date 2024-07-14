@@ -95,7 +95,7 @@ def preprocess_data(data):
 
 def make_predictions(model, x):
   predictions = model.predict(x)
-  retiurn predictions
+  return predictions
 
 def inverse_transform_predictions(predictions, scaler):
     scaled_predictions = np.zeros((predictions.shape[0], 6))  # Assuming 6 feature columns
