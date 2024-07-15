@@ -136,15 +136,13 @@ original_predictions = inverse_transform_predictions(predictions, scaler)
 st.subheader('Predictions')
 st.line_chart(original_predictions)
 
-df_date = df['Date']
 # Comparison with actual data
 actual_data = df['Price'][30:].values  # Assuming 'Price' is the target column
 st.subheader('Actual vs Predicted')
 comparison_df = pd.DataFrame({
-    'Date': df_date[30:],  # Assuming index is a datetime index
     'Actual': actual_data,
     'Predicted': original_predictions
-})
+}), index = df.index[30:])
 
 # Melt the DataFrame for Altair
 comparison_df = comparison_df.melt('Date', var_name='Type', value_name='Value')
@@ -162,8 +160,6 @@ chart = alt.Chart(comparison_df).mark_line().encode(
 
 # Display the chart in Streamlit
 st.altair_chart(chart, use_container_width=True)
-
-st.write(df.index)
 
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
