@@ -136,9 +136,6 @@ original_predictions = inverse_transform_predictions(predictions, scaler)
 st.subheader('Predictions')
 st.line_chart(original_predictions)
 
-# convert index to datetime
-df.index = pd.to_datetime(df.index)
-
 # Comparison with actual data
 actual_data = df['Price'][30:].values  # Assuming 'Price' is the target column
 st.subheader('Actual vs Predicted')
