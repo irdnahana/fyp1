@@ -139,37 +139,34 @@ st.line_chart(original_predictions)
 ####################### PLOTTING NEW CHART ###########################
 
 # convert array to dataframe
-df_predictions = pd.DataFrame({'Predicted': original_predictions})
-df_actual = pd.DataFrame({'Date': df['Date'], 'actual': df['Price']})
+df_predictions = pd.DataFrame({'Predicted Price': original_predictions})
+df_actual = pd.DataFrame({'Date': df['Date'], 'Actual Price': df['Price']})
 
 # combine the dataframe
 new_df = pd.concat([df_actual, df_predictions], axis=1)
 
-st.write(new_df)
 # Comparison with actual data
-actual_data = df['Price'][30:].values  # Assuming 'Price' is the target column
 st.subheader('Actual vs Predicted')
-comparison_df = pd.DataFrame({
-    'Actual': actual_data,
-    'Predicted': original_predictions
-}, index = df.index[30:])
-
-# Melt the DataFrame for Altair
-comparison_df = comparison_df.melt('Date', var_name='Type', value_name='Value')
-
-# Create the Altair chart
-chart = alt.Chart(comparison_df).mark_line().encode(
-    x='Timestep:T',
-    y='Price:Q',
-    color=alt.Color('Type:N', scale=alt.Scale(domain=['Actual', 'Predicted'], range=['blue', 'purple']))
+chart = alt.Chart(new_df).mark_line().encode(
+    x='date:T',  # T specifies temporal axis
+    y=alt.Y('actual', axis=alt.Axis(title='Value')),
+    color=alt.value('blue')  # Set line color to blue for actual
 ).properties(
     title='Actual vs Predicted'
-).configure_legend(
-    orient='bottom'
 )
 
+# Add the predicted line
+predicted_line = alt.Chart(new_df).mark_line().encode(
+    x='date:T',
+    y=alt.Y('predicted', axis=alt.Axis(title='Value')),
+    color=alt.value('purple')  # Set line color to purple for predicted
+)
+
+# Combine the charts
+final_chart = chart + predicted_line
+
 # Display the chart in Streamlit
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(final_chart, use_container_width=True)
 
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
