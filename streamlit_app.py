@@ -76,7 +76,7 @@ st.bar_chart(monthly_avg)
 
 # Display raw data
 st.subheader("Raw Data")
-st.write(df)
+st.write(df, use_container_width=True)
 
 ################### PREDICTION #####################
 
@@ -166,7 +166,7 @@ predicted_line = alt.Chart(new_df).mark_line().encode(
 final_chart = chart + predicted_line
 
 # Display the chart in Streamlit
-st.altair_chart(final_chart, use_container_width=True)
+st.altair_chart(final_chart)
 
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
