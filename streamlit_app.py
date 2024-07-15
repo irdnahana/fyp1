@@ -76,7 +76,7 @@ st.bar_chart(monthly_avg)
 
 # Display raw data
 st.subheader("Raw Data")
-st.write(df, use_container_width=True)
+st.write(df)
 
 ################### PREDICTION #####################
 
@@ -145,8 +145,9 @@ df_actual = pd.DataFrame({'Date': df['Date'], 'Actual Price': df['Price']})
 # combine the dataframe
 new_df = pd.concat([df_actual, df_predictions], axis=1)
 
-st.subheader('Predicted Price Compared to Actual Price')
+st.subheader("Predicted Price Compared to Actual Price")
 st.write(new_df)
+
 # Comparison with actual data
 st.subheader('Actual vs Predicted')
 chart = alt.Chart(new_df).mark_line().encode(
