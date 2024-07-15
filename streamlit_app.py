@@ -117,7 +117,7 @@ def inverse_transform_predictions(predictions, scaler):
 x, y, scaler = preprocess_data(df)
 x_seq = create_sequence(x)
 y_seq = create_sequence(y)
-x_lstm = reshape_for_lstm(x_seq, y_seq)
+x_lstm, y_lstm = reshape_for_lstm(x_seq, y_seq)
 
 st.subheader('Preprocessed Data')
 st.write(f'x shape: {x.shape}')
