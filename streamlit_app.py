@@ -143,7 +143,26 @@ comparison_df = pd.DataFrame({
     'Actual': actual_data,
     'Predicted': original_predictions
 }, index=df.index[30:])
-st.line_chart(comparison_df)
+#st.line_chart(comparison_df)
+
+# Melt the DataFrame for Altair
+comparison_df = comparison_df.reset_index().melt('index', var_name='Type', value_name='Value')
+
+# Create the Altair chart
+chart = alt.Chart(comparison_df).mark_line().encode(
+    x='index:T',
+    y='Value:Q',
+    color=alt.condition(
+        alt.datum.Type == 'Actual',
+        alt.value('blue'),  # The color for actual values
+        alt.value('purple')  # The color for predicted values
+    )
+).properties(
+    title='Actual vs Predicted'
+)
+
+# Display the chart in Streamlit
+st.altair_chart(chart, use_container_width=True)
 
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
