@@ -140,23 +140,19 @@ st.line_chart(original_predictions)
 actual_data = df['Price'][30:].values  # Assuming 'Price' is the target column
 st.subheader('Actual vs Predicted')
 comparison_df = pd.DataFrame({
+    'Index': df.index[30:],
     'Actual': actual_data,
     'Predicted': original_predictions
-}, index=df.index[30:])
-#st.line_chart(comparison_df)
+})
 
 # Melt the DataFrame for Altair
-comparison_df = comparison_df.reset_index().melt('index', var_name='Type', value_name='Value')
+comparison_df = comparison_df.melt('Index', var_name='Type', value_name='Value')
 
 # Create the Altair chart
 chart = alt.Chart(comparison_df).mark_line().encode(
-    x='index:T',
+    x='Index:T',
     y='Value:Q',
-    color=alt.condition(
-        alt.datum.Type == 'Actual',
-        alt.value('blue'),  # The color for actual values
-        alt.value('purple')  # The color for predicted values
-    )
+    color=alt.Color('Type:N', scale=alt.Scale(domain=['Actual', 'Predicted'], range=['blue', 'purple']))
 ).properties(
     title='Actual vs Predicted'
 )
