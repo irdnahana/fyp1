@@ -136,6 +136,9 @@ original_predictions = inverse_transform_predictions(predictions, scaler)
 st.subheader('Predictions')
 st.line_chart(original_predictions)
 
+# convert index to datetime
+df.index = pd.to_datetime(df.index)
+
 # Comparison with actual data
 actual_data = df['Price'][30:].values  # Assuming 'Price' is the target column
 st.subheader('Actual vs Predicted')
@@ -152,7 +155,7 @@ comparison_df = comparison_df.melt('Date', var_name='Type', value_name='Value')
 chart = alt.Chart(comparison_df).mark_line().encode(
     x='Date:T',
     y='Value:Q',
-    color=alt.Color('Type:N', scale=alt.Scale(domain=['Actual', 'Predicted'], range=['blue', 'purple'])),
+    color=alt.Color('Type:N', scale=alt.Scale(domain=['Actual', 'Predicted'], range=['blue', 'purple']))
 ).properties(
     title='Actual vs Predicted'
 ).configure_legend(
