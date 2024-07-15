@@ -94,8 +94,8 @@ def preprocess_data(data):
 
 def create_sequence(data):
     sequences = []
-    for i in range(len(data) - 15):
-        sequences.append(data[i:i + 15])
+    for i in range(len(data) - 30):
+        sequences.append(data[i:i + 30])
     return np.array(sequences)
 
 def reshape_for_lstm(x, y):
