@@ -148,8 +148,8 @@ new_df = pd.concat([df_actual, df_predictions], axis=1)
 # Comparison with actual data
 st.subheader('Actual vs Predicted')
 chart = alt.Chart(new_df).mark_line().encode(
-    x='date:T',  # T specifies temporal axis
-    y=alt.Y('actual', axis=alt.Axis(title='Value')),
+    x='Date:T',  # T specifies temporal axis
+    y=alt.Y('Actual Price', axis=alt.Axis(title='Value')),
     color=alt.value('blue')  # Set line color to blue for actual
 ).properties(
     title='Actual vs Predicted'
@@ -157,8 +157,8 @@ chart = alt.Chart(new_df).mark_line().encode(
 
 # Add the predicted line
 predicted_line = alt.Chart(new_df).mark_line().encode(
-    x='date:T',
-    y=alt.Y('predicted', axis=alt.Axis(title='Value')),
+    x='Date:T',
+    y=alt.Y('Predicted Price', axis=alt.Axis(title='Value')),
     color=alt.value('purple')  # Set line color to purple for predicted
 )
 
