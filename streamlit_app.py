@@ -162,6 +162,8 @@ chart = alt.Chart(comparison_df).mark_line().encode(
 # Display the chart in Streamlit
 st.altair_chart(chart, use_container_width=True)
 
+print(df.index)
+
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
     # Example of how to prepare data for prediction
