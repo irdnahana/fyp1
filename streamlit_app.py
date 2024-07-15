@@ -87,8 +87,8 @@ def preprocess_data(data):
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(data[feature_cols + [target_col]])
     
-    x = scaled_dataset[:, 1:]
-    y = scaled_dataset[:, 0]
+    x = scaled_data[:, 1:]
+    y = scaled_data[:, 0]
     
     return x, y, scaler
 
