@@ -136,6 +136,16 @@ original_predictions = inverse_transform_predictions(predictions, scaler)
 st.subheader('Predictions')
 st.line_chart(original_predictions)
 
+####################### PLOTTING NEW CHART ###########################
+
+# convert array to dataframe
+df_predictions = pd.DataFrame({'Predicted': original_predictions})
+df_actual = pd.DataFrame({'Date': df['Date'], 'actual': df['Price']})
+
+# combine the dataframe
+new_df = pd.concat([df_actual, df_predictions], axis=1)
+
+st.write(new_df)
 # Comparison with actual data
 actual_data = df['Price'][30:].values  # Assuming 'Price' is the target column
 st.subheader('Actual vs Predicted')
