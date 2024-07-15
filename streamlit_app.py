@@ -142,7 +142,7 @@ st.subheader('Actual vs Predicted')
 comparison_df = pd.DataFrame({
     'Actual': actual_data,
     'Predicted': original_predictions
-}), index = df.index[30:])
+}, index = df.index[30:])
 
 # Melt the DataFrame for Altair
 comparison_df = comparison_df.melt('Date', var_name='Type', value_name='Value')
