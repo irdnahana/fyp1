@@ -209,48 +209,6 @@ def prediction_page():
     # Display the chart in Streamlit
     st.altair_chart(final_chart, use_container_width=True)
 
-    # Dataset last date
-    last_date = datetime(2024, 5, 31)
-    
-    # Function to generate future dates
-    def generate_future_dates(start_date, days):
-        return [start_date + timedelta(days=i) for i in range(1, days + 1)]
-
-    # Generate dates for the next 7 days
-    future_dates = generate_future_dates(last_date, 31)
-
-    # Create a dataframe for the future dates with initial placeholder values #
-    future_df = pd.DataFrame({
-        'Date': future_dates,
-        'Price': [i for i in range(31)],
-        'Open': [70 + i for i in range(31)],
-        'High': [72 + i for i in range(31)],
-        'Low': [69 + i for i in range(31)],
-        'Vol.': [1000 + i*10 for i in range(31)],
-        'Change %': [0.1 + i*0.01 for i in range(31)]
-    })
-
-    # Preprocess the data
-    x1, y1, scaler1 = preprocess_data(future_df)
-    x_seq1 = create_sequence(x1)
-    y_seq1 = create_sequence(y1)
-    x_lstm1, y_lstm1 = reshape_for_lstm(x_seq1, y_seq1)
-
-    # Load the trained model
-    model = load_model('best_model.h5')
-
-    # Make predictions
-    predictions1 = make_predictions(model, x_lstm1)
-    st.write(predictions1)
-
-    # Inverse transform predictions
-    original_predictions1 = inverse_transform_predictions(predictions1, scaler1)
-
-    # Plot the future prediction
-    st.subheader("Future Predictions")
-    future_fig = px.line(original_predictions1)
-    st.plotly_chart(future_fig, use_contained_width=True)
-
 # Create a sidebar navigation
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Data Dashboard", "Prediction"])
