@@ -25,6 +25,16 @@ def load_data():
 
 df = load_data()
 
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    html, body, [class*="css"]  {
+        font-family: 'Roboto', sans-serif;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+            
 def about():
     st.title("About the Project")
     st.subheader("Overview")
