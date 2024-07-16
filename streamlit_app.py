@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.colors import n_colors
 import matplotlib.pyplot as plt
 import streamlit as st
 import calendar
