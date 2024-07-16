@@ -71,7 +71,7 @@ def data_dashboard():
         st.info("Maybe add on min, max, q1, q2, q3", icon="💡")
         
     else:
-        st.write(f"No data available for the selected date range")
+        st.info(f"No data available for the selected date range")
 
     # Create a new section for the bar chart
     st.sidebar.header("Monthly Average Prices")
