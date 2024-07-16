@@ -171,7 +171,7 @@ def data_dashboard():
     
 ################### PREDICTION #####################
 def prediction_page():
-    st.title("Prediction", icon='🔍')
+    st.title("🔍 Prediction")
     
     def preprocess_data(data):
         feature_cols = ['Open', 'High', 'Low', 'Vol.', 'Change %']
