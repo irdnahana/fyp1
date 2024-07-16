@@ -72,13 +72,29 @@ months = list(calendar.month_name[1:])
 monthly_avg['Month'] = pd.Categorical(monthly_avg['Month'], categories=months, ordered=True)
 monthly_avg = monthly_avg.sort_values('Month')
 
-# Create a bar chart using Plotly
-fig = px.bar(monthly_avg, x='Month', y='Price', 
-             color='Month', color_discrete_sequence=px.colors.sequential.Blues)
+# Custom blue shades
+custom_colors = [
+    "#e0f3f8", "#ccebc5", "#a8ddb5", "#7bccc4", "#4eb3d3", 
+    "#2b8cbe", "#0868ac", "#084081", "#081d58", "#03045e",
+    "#023e8a", "#0077b6"
+]
 
-# Update the figure to remove the legend and add more shades of blue
-fig.update_layout(showlegend=False)
-fig.update_traces(marker=dict(colorscale='Blues'))
+# Create a bar chart using Plotly Graph Objects
+fig = go.Figure(data=[
+    go.Bar(
+        x=monthly_avg['Month'],
+        y=monthly_avg['Price'],
+        marker_color=custom_colors
+    )
+])
+
+# Update layout to remove legend and improve appearance
+fig.update_layout(
+    showlegend=False,
+    title=f"Average Monthly WTI Crude Oil Prices for {selected_year}",
+    xaxis_title="Month",
+    yaxis_title="Price"
+)
 
 # Display the bar chart in Streamlit
 st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
