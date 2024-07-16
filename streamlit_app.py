@@ -25,6 +25,40 @@ def load_data():
 
 df = load_data()
 
+def about():
+    st.title("About the Project")
+    st.subheader("Overview")
+    st.write(
+        """
+        West Texas Intermediate (WTI) crude oil is a major benchmark for oil prices 
+        worldwide. It is considered one of the highest quality oils due to its low 
+        density and low sulfur content. WTI crude oil prices are critical indicators 
+        of the health of the global economy and have significant impacts on energy 
+        markets, inflation, and geopolitical dynamics.
+        """
+    )
+    st.subheader("Purpose")
+    st.write(
+        """
+        This dashboard is designed to provide an interactive and comprehensive view 
+        of WTI crude oil prices over time. By exploring various visualizations and 
+        metrics, users can gain insights into historical price trends, average 
+        monthly prices, annual returns, and the volatility of WTI crude oil.
+        """
+    )
+    st.subheader("Usage Instruction")
+    st.write(
+        """
+        1. There are 2 pages the user can navigate to; The Dashboard page and the Predictions page.
+        2. In the Dashboard page the user can select the specific start and end date to view the
+        historical price of the WTI crude oil. Based on the selected range, the user are also able
+        to view the average price, annual return, standard deviation.
+        3. Aside from that, users can select the year that they want to view the monthly average
+         prices for the selected year. The minimum and maximum value and the corresponding month 
+         will show for the year as well.
+        """
+    )
+
 def data_dashboard():
     # Show the page title and description.
     st.title("🛢️ WTI Crude Oil Prices Dashboard")
@@ -224,10 +258,12 @@ def prediction_page():
 
 # Create a sidebar navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Data Dashboard", "Prediction"])
+page = st.sidebar.radio("Go to", ["About the Project", "Data Dashboard", "Prediction"])
 
 # Render the selected page
-if page == "Data Dashboard":
+if page == "About the Project":
+    about()
+elif page == "Data Dashboard":
     data_dashboard()
 elif page == "Prediction":
     prediction_page()
