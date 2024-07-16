@@ -46,6 +46,7 @@ price_fig = px.line(date_range_data.set_index('Date')['Price'], x='Date', y='Pri
 price_fig.update_layout(
     xaxis_title='Date',
     yaxis_title='Price'
+)
 #st.line_chart(date_range_data.set_index('Date')['Price'], color=['#0000FF'])
 
 # Display average price for the selected date range
