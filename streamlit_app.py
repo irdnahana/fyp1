@@ -71,7 +71,7 @@ def data_dashboard():
         st.info("Maybe add on min, max, q1, q2, q3", icon="💡")
         
     else:
-        st.info(f"No data available for the selected date range")
+        st.info(f"No data available for the selected date range.")
 
     # Create a new section for the bar chart
     st.sidebar.header("Monthly Average Prices")
@@ -123,8 +123,8 @@ def data_dashboard():
     max_month = monthly_avg.loc[monthly_avg['Price'].idxmax(), 'Month']
 
     # Display the min and max values and corresponding months
-    st.write(f"The minimum average price in {selected_year} was {min_value:.2f} in {min_month}.")
-    st.write(f"The maximum average price in {selected_year} was {max_value:.2f} in {max_month}.")
+    st.info(f"The minimum average price in {selected_year} was {min_value:.2f} in {min_month}.")
+    st.info(f"The maximum average price in {selected_year} was {max_value:.2f} in {max_month}.")
 
     # Display the filtered dataframe
     st.subheader(f'Data from {start_date} to {end_date}')
