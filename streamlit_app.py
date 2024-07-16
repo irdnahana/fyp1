@@ -75,8 +75,8 @@ monthly_avg = monthly_avg.sort_values('Month')
 
 # Custom blue shades
 custom_colors = [
-    "#F0FFFF", "#ADD8E6", "#87CEEB", "#89CFF0", "#0096FF", 
-    "#1F51FF", "#0437F2", "#0818A8", "#0047AB", "#4169E1",
+    "#82EEFD", "#63C5DA", "#0492C2", "#2832C2", "#051094", 
+    "#0A1172", "#281E5D", "#241571", "#0047AB", "#4169E1",
     "#5D3FD3", "#6495ED"
 ]
 
