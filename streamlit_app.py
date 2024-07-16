@@ -231,6 +231,7 @@ def prediction_page():
     })
     # For demonstration purposes, let's assume you have some method to estimate these features
     # Here, we will use the same values as a placeholder, replace these with your actual estimates
+    future_df['Pice'] = [i for i in range(30)]  # Example values
     future_df['Open'] = [70 + i for i in range(30)]  # Example values
     future_df['High'] = [72 + i for i in range(30)]  # Example values
     future_df['Low'] = [69 + i for i in range(30)]   # Example values
