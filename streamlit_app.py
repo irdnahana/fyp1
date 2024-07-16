@@ -228,8 +228,16 @@ def prediction_page():
     original_predictions = inverse_transform_predictions(predictions, scaler)
 
     # Display predictions
-    st.subheader('Predictions')
-    st.line_chart(original_predictions)
+    st.subheader('Predicted Price over the Years')
+    predict_fig = px.line(original_predictions, x='Date', y='Price')
+    predict_fig.update_layout(
+        xaxis_title='Date',
+        yaxis_title='Price'
+    )
+
+    predict_fig.update_traces(line=dict(color='purple'))
+    st.plotly_chart(predict_fig, use_container_width=True)
+    #st.line_chart(original_predictions)
 
     ####################### PLOTTING NEW CHART ###########################
 
