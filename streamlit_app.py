@@ -23,10 +23,10 @@ def load_data():
 
 df = load_data()
 
+st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
+
 def data_dashboard():
-    st.title("Data Dashboard")
     # Show the page title and description.
-    st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
     st.title("🛢️ WTI Crude Oil Prices Dashboard")
     st.write(
         """
@@ -35,9 +35,9 @@ def data_dashboard():
         """
     )
 
-    st.sidebar.header("User Input")
-    start_date = st.sidebar.date_input("Select Start Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
-    end_date = st.sidebar.date_input("Select End Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
+    st.header("User Input")
+    start_date = st.date_input("Select Start Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
+    end_date = st.date_input("Select End Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
 
     # Filter data by selected date range
     date_range_data = df[(df['Date'] >= pd.to_datetime(start_date)) & (df['Date'] <= pd.to_datetime(end_date))]
@@ -66,8 +66,8 @@ def data_dashboard():
         st.write(f"No data available for the selected date range")
 
     # Create a new section for the bar chart
-    st.sidebar.header("Monthly Average Prices")
-    selected_year = st.sidebar.selectbox("Select Year for Monthly Averages", range(1990, 2024))
+    st.header("Monthly Average Prices")
+    selected_year = st.selectbox("Select Year for Monthly Averages", range(1990, 2024))
 
     # Filter data for the selected year
     year_data = df[df['Date'].dt.year == selected_year]
