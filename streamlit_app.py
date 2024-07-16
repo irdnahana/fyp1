@@ -252,10 +252,8 @@ def prediction_page():
     st.subheader('Actual vs Predicted')
     chart = alt.Chart(new_df).mark_line().encode(
         x='Date:T',  # T specifies temporal axis
-        y=alt.Y('Actual Price', axis=alt.Axis(title='Value')),
+        y=alt.Y('Actual Price', axis=alt.Axis(title='Price')),
         color=alt.value('blue')  # Set line color to blue for actual
-    ).properties(
-        title='Actual vs Predicted'
     )
 
     # Add the predicted line
