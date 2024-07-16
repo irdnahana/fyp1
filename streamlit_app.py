@@ -62,19 +62,21 @@ year_data = df[df['Date'].dt.year == selected_year]
 
 # Calculate monthly averages
 monthly_avg = year_data.groupby(year_data['Date'].dt.month)['Price'].mean()
+monthly_avg.columns = ['Month', 'Price']
 
 # Map month numbers to month names
-monthly_avg.index = monthly_avg.index.map(lambda x: calendar.month_name[x])
+monthly_avg['Month'] = monthly_avg['Month'].apply(lambda x: calendar.month_name[x])
 
-# Convert index to a categorical type with the correct order
-months = list(calendar.month_name[1:])
-monthly_avg.index = pd.CategoricalIndex(monthly_avg.index, categories=months, ordered=True)
-monthly_avg = monthly_avg.sort_index()
+# Ensure 'Month' column is in the correct order
+monthly_avg['Month'] = pd.Categorical(monthly_avg['Month'], categories=list(calendar.month_name[1:]), ordered=True)
+monthly_avg = monthly_avg.sort_values('Month')
 
-# Display the bar chart
-st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
-fig = px.bar(monthly_avg.index, x=months, monthly_avg, 
+# Create a bar chart using Plotly
+fig = px.bar(monthly_avg, x='Month', y='Price', 
              color='Month', color_discrete_sequence=px.colors.sequential.Blues)
+
+# Display the bar chart in Streamlit
+st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
 st.plotly_chart(fig)
 #st.bar_chart(monthly_avg)
 
