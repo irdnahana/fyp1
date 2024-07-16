@@ -181,6 +181,9 @@ chart = alt.Chart(new_df).mark_line().encode(
     color=alt.value('blue')  # Set line color to blue for actual
 ).properties(
     title='Actual vs Predicted'
+).configure_legend(
+    labelColor='white',
+    titleColor='white'
 )
 
 # Add the predicted line
