@@ -248,11 +248,6 @@ def prediction_page():
 
     ####################### PLOTTING NEW CHART ###########################
 
-    #new_df_melted = pd.melt(new_df, id_vars['Date'], value_vars=['Actual Price', 'Predicted Price'], var_name='Category', value_name='Actual, Predicted')
-
-    st.subheader("Predicted Price Compared to Actual Price")
-    st.dataframe(new_df, use_container_width=True)
-
     # Comparison with actual data
     st.subheader('Actual vs Predicted')
     chart = alt.Chart(new_df).mark_line().encode(
@@ -275,6 +270,10 @@ def prediction_page():
 
     # Display the chart in Streamlit
     st.altair_chart(final_chart, use_container_width=True)
+
+    st.subheader("Predicted Price Compared to Actual Price")
+    st.dataframe(new_df, use_container_width=True)
+    st.info("This table shows the actual price of crude oil and the predicted price to provide side by side comparison.")
 
 # Create a sidebar navigation
 st.sidebar.title("Navigation")
