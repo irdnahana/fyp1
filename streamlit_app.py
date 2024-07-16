@@ -235,15 +235,15 @@ def prediction_page():
     new_df = pd.concat([df_actual, df_predictions], axis=1)
 
     # Display predictions
-    st.subheader('Predicted Price over the Years')
-    predict_fig = px.line(new_df, x='Date', y='Predicted Price')
-    predict_fig.update_layout(
-        xaxis_title='Date',
-        yaxis_title='Predicted Price'
-    )
+    #st.subheader('Predicted Price over the Years')
+    #predict_fig = px.line(new_df, x='Date', y='Predicted Price')
+    #predict_fig.update_layout(
+    #    xaxis_title='Date',
+    #    yaxis_title='Predicted Price'
+    #)
 
-    predict_fig.update_traces(line=dict(color='purple'))
-    st.plotly_chart(predict_fig, use_container_width=True)
+    #predict_fig.update_traces(line=dict(color='purple'))
+    #st.plotly_chart(predict_fig, use_container_width=True)
     #st.line_chart(original_predictions)
 
     ####################### PLOTTING NEW CHART ###########################
@@ -270,6 +270,25 @@ def prediction_page():
 
     # Display the chart in Streamlit
     st.altair_chart(final_chart, use_container_width=True)
+    st.write(
+        """
+        Based on this graph, it can be seen that:
+        - The predicted line closely follows the actual line, suggesting that the model 
+        is fairly accurate in capturing the trends and movements in crude oil prices.
+        - However, there are periods where the predicted line deviates from the actual 
+        line, which indicates areas where the model's predictions could be improved.
+        """
+    )
+    st.info(
+        """
+        The "Actual vs Predicted" graph provides a comprehensive overview of how well 
+        the predictive model is performing in forecasting WTI crude oil prices. By 
+        comparing the actual and predicted values over a long period, it highlights 
+        both the accuracy of the model and the inherent volatility in crude oil prices. 
+        This graph can be a valuable tool for analysts and decision-makers to understand 
+        past trends and future expectations in the crude oil market.
+        """
+    )
 
     st.subheader("Predicted Price Compared to Actual Price")
     st.dataframe(new_df, use_container_width=True)
