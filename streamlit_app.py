@@ -55,13 +55,21 @@ def data_dashboard():
     #st.line_chart(date_range_data.set_index('Date')['Price'], color=['#0000FF'])
 
     # Display average price for the selected date range
-    if not date_range_data.empty:
+    if not start_date == "1990-01-01":
         avg_price = date_range_data['Price'].mean()
-        st.write(f"Average price from {start_date} to {end_date}: $", avg_price)
+        st.info(f"Average price from {start_date} to {end_date}: $", avg_price,
+                f"Average price is counted by .. [explain about average]"
+               )
+        
         annual_return = date_range_data["Change %"].mean() * 252 * 100
-        st.write("Annual return is ", annual_return, "%")
+        st.info(f"Annual return is ", annual_return, "%",
+               f"Annual return is counted by ... [explain about it]"
+               )
+        
         stdev = np.std(date_range_data["Change %"]) * np.sqrt(252) * 100
-        st.write("Standard Deviation is ", stdev, "%")
+        st.info("Standard Deviation is ", stdev, "%",
+               f"Standard deviation is counted by ,,, [explain a bit]"
+               )
     else:
         st.write(f"No data available for the selected date range")
 
