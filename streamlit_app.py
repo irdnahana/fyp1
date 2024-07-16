@@ -27,11 +27,7 @@ df = load_data()
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-    html, body, [class*="css"]  {
-        font-family: 'Roboto', sans-serif;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     </style>
     """, unsafe_allow_html=True)
 
