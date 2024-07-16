@@ -169,7 +169,7 @@ predicted_line = alt.Chart(new_df).mark_line().encode(
 final_chart = chart + predicted_line
 
 # Display the chart in Streamlit
-st.altair_chart(final_chart)
+st.altair_chart(final_chart, use_container_width=True)
 
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
