@@ -222,21 +222,13 @@ def prediction_page():
     # Create a dataframe for the future dates with initial placeholder values #
     future_df = pd.DataFrame({
         'Date': future_dates,
-        'Price': [0]*30,
-        'Open': [0]*30,
-        'High': [0]*30,
-        'Low': [0]*30,
-        'Vol.': [0]*30,
-        'Change %': [0]*30,
+        'Price': [i for i in range(30)],
+        'Open': [70 + i for i in range(30)],
+        'High': [72 + i for i in range(30)],
+        'Low': [69 + i for i in range(30)],
+        'Vol.': [1000 + i*10 for i in range(30)],
+        'Change %': [[0.1 + i*0.01 for i in range(30)]
     })
-    # For demonstration purposes, let's assume you have some method to estimate these features
-    # Here, we will use the same values as a placeholder, replace these with your actual estimates
-    future_df['Pice'] = [i for i in range(30)]  # Example values
-    future_df['Open'] = [70 + i for i in range(30)]  # Example values
-    future_df['High'] = [72 + i for i in range(30)]  # Example values
-    future_df['Low'] = [69 + i for i in range(30)]   # Example values
-    future_df['Vol'] = [1000 + i*10 for i in range(30)]  # Example values
-    future_df['Change'] = [0.1 + i*0.01 for i in range(30)]
 
     # Preprocess the data
     x1, y1, scaler1 = preprocess_data(future_df)
