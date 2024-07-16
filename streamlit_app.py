@@ -75,9 +75,9 @@ monthly_avg = monthly_avg.sort_values('Month')
 
 # Custom blue shades
 custom_colors = [
-    "#e0f3f8", "#ccebc5", "#a8ddb5", "#7bccc4", "#4eb3d3", 
-    "#2b8cbe", "#0868ac", "#084081", "#081d58", "#03045e",
-    "#023e8a", "#0077b6"
+    "#ADD8E6", "#A7C7E7", "#87CEEB", "#89CFF0", "#6495ED", 
+    "#0096FF", "#0047AB", "#5D3FD3", "#1F51FF", "#4169E1",
+    "#0437F2", "#0818A8"
 ]
 
 # Create a bar chart using Plotly Graph Objects
