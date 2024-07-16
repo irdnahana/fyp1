@@ -169,34 +169,34 @@ df_actual = pd.DataFrame({'Date': df['Date'], 'Actual Price': df['Price']})
 
 # combine the dataframe
 new_df = pd.concat([df_actual, df_predictions], axis=1)
-new_df_melted = pd.melt(new_df, id_vars['Date'], value_vars=['Actual Price', 'Predicted Price'], var_name='Category', value_name='Actual, Predicted')
+#new_df_melted = pd.melt(new_df, id_vars['Date'], value_vars=['Actual Price', 'Predicted Price'], var_name='Category', value_name='Actual, Predicted')
 
 st.subheader("Predicted Price Compared to Actual Price")
 st.write(new_df)
 
 # Comparison with actual data
 st.subheader('Actual vs Predicted')
-chart = alt.Chart(new_df_melted).mark_line().encode(
-    x='Date',#'Date:T',  # T specifies temporal axis
-    y='Actual Price, Predicted Price', #alt.Y('Actual Price', axis=alt.Axis(title='Value')),
-    color='category:N' #alt.value('blue')  # Set line color to blue for actual
+chart = alt.Chart(new_df).mark_line().encode(
+    x='Date:T',  # T specifies temporal axis
+    y=alt.Y('Actual Price', axis=alt.Axis(title='Value')),
+    color=alt.value('blue')  # Set line color to blue for actual
 ).properties(
     title='Actual vs Predicted'
 )
 
 # Add the predicted line
-#predicted_line = alt.Chart(new_df).mark_line().encode(
-#    x='Date:T',
-#    y=alt.Y('Predicted Price', axis=alt.Axis(title='Value')),
-#    color=alt.value('purple')  # Set line color to purple for predicted
-#)
+predicted_line = alt.Chart(new_df).mark_line().encode(
+    x='Date:T',
+    y=alt.Y('Predicted Price', axis=alt.Axis(title='Value')),
+    color=alt.value('purple')  # Set line color to purple for predicted
+)
 
 # Combine the charts
-#final_chart = chart + predicted_line
+final_chart = chart + predicted_line
 
 # Display the chart in Streamlit
-#st.altair_chart(final_chart, use_container_width=True)
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(final_chart, use_container_width=True)
+#st.altair_chart(chart, use_container_width=True)
 
 # Function to prepare data for prediction
 #def prepare_data_for_prediction(date, data, scaler):
