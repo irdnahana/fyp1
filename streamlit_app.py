@@ -222,6 +222,7 @@ def prediction_page():
     # Create a dataframe for the future dates with initial placeholder values #
     future_df = pd.DataFrame({
         'Date': future_dates,
+        'Price': [0]*30,
         'Open': [0]*30,
         'High': [0]*30,
         'Low': [0]*30,
@@ -235,9 +236,6 @@ def prediction_page():
     future_df['Low'] = [69 + i for i in range(30)]   # Example values
     future_df['Vol'] = [1000 + i*10 for i in range(30)]  # Example values
     future_df['Change'] = [0.1 + i*0.01 for i in range(30)]
-
-    # Ensures the features are in the correct order
-    features = ['Date', 'Open', 'High', 'Low', 'Vol', 'Change %']
 
     # Preprocess the data
     x1, y1, scaler1 = preprocess_data(future_df)
