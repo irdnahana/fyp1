@@ -227,12 +227,19 @@ def prediction_page():
     # Inverse transform predictions
     original_predictions = inverse_transform_predictions(predictions, scaler)
 
+    # convert array to dataframe
+    df_predictions = pd.DataFrame({'Predicted Price': original_predictions})
+    df_actual = pd.DataFrame({'Date': df['Date'], 'Actual Price': df['Price']})
+
+    # combine the dataframe
+    new_df = pd.concat([df_actual, df_predictions], axis=1)
+
     # Display predictions
     st.subheader('Predicted Price over the Years')
-    predict_fig = px.line(original_predictions, x='Date', y='Price')
+    predict_fig = px.line(new_df, x='Date', y='Predicted Price')
     predict_fig.update_layout(
         xaxis_title='Date',
-        yaxis_title='Price'
+        yaxis_title='Predicted Price'
     )
 
     predict_fig.update_traces(line=dict(color='purple'))
@@ -241,12 +248,6 @@ def prediction_page():
 
     ####################### PLOTTING NEW CHART ###########################
 
-    # convert array to dataframe
-    df_predictions = pd.DataFrame({'Predicted Price': original_predictions})
-    df_actual = pd.DataFrame({'Date': df['Date'], 'Actual Price': df['Price']})
-
-    # combine the dataframe
-    new_df = pd.concat([df_actual, df_predictions], axis=1)
     #new_df_melted = pd.melt(new_df, id_vars['Date'], value_vars=['Actual Price', 'Predicted Price'], var_name='Category', value_name='Actual, Predicted')
 
     st.subheader("Predicted Price Compared to Actual Price")
