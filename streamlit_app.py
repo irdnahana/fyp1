@@ -214,7 +214,7 @@ def prediction_page():
     
     # Function to generate future dates
     def generate_future_dates(start_date, days):
-        return [start_date + timedelta(days=i) for i in range(1, days + 1)
+        return [start_date + timedelta(days=i) for i in range(1, days + 1)]
 
     # Generate dates for the next 7 days
     future_dates = generate_future_dates(last_date, 7)
