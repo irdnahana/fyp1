@@ -42,7 +42,7 @@ date_range_data = df[(df['Date'] >= pd.to_datetime(start_date)) & (df['Date'] <=
 
 # Display the data
 st.subheader(f"WTI Crude Oil Prices from {start_date} to {end_date}")
-st.line_chart(date_range_data.set_index('Date')['Price'])
+st.line_chart(date_range_data.set_index('Date')['Price'], color=('blue'))
 
 # Display average price for the selected date range
 if not date_range_data.empty:
@@ -143,10 +143,6 @@ x, y, scaler = preprocess_data(df)
 x_seq = create_sequence(x)
 y_seq = create_sequence(y)
 x_lstm, y_lstm = reshape_for_lstm(x_seq, y_seq)
-
-st.subheader('Preprocessed Data')
-st.write(f'x shape: {x.shape}')
-st.write(f'y shape: {y.shape}')
 
 # Load the trained model
 model = load_model('best_model.h5')
