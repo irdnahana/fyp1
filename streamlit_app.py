@@ -105,7 +105,7 @@ st.plotly_chart(fig)
 
 # Display the filtered dataframe
 st.subheader(f'Data from {start_date} to {end_date}')
-st.write(date_range_data)
+st.dataframe(date_range_data, use_container_width=True)
 
 ################### PREDICTION #####################
 
