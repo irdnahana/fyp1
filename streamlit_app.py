@@ -217,34 +217,46 @@ def prediction_page():
         return [start_date + timedelta(days=i) for i in range(1, days + 1)]
 
     # Generate dates for the next 7 days
-    future_dates = generate_future_dates(last_date, 7)
+    future_dates = generate_future_dates(last_date, 30)
 
     # Create a dataframe for the future dates with initial placeholder values #
     future_df = pd.DataFrame({
         'Date': future_dates,
-        'Open': [0]*7,
-        'High': [0]*7,
-        'Low': [0]*7,
-        'Vol.': [0]*7,
-        'Change %': [0]*7,
+        'Open': [0]*30,
+        'High': [0]*30,
+        'Low': [0]*30,
+        'Vol.': [0]*30,
+        'Change %': [0]*30,
     })
     # For demonstration purposes, let's assume you have some method to estimate these features
     # Here, we will use the same values as a placeholder, replace these with your actual estimates
-    future_df['Open'] = [70 + i for i in range(7)]  # Example values
-    future_df['High'] = [72 + i for i in range(7)]  # Example values
-    future_df['Low'] = [69 + i for i in range(7)]   # Example values
-    future_df['Vol'] = [1000 + i*10 for i in range(7)]  # Example values
-    future_df['Change'] = [0.1 + i*0.01 for i in range(7)]
+    future_df['Open'] = [70 + i for i in range(30)]  # Example values
+    future_df['High'] = [72 + i for i in range(30)]  # Example values
+    future_df['Low'] = [69 + i for i in range(30)]   # Example values
+    future_df['Vol'] = [1000 + i*10 for i in range(30)]  # Example values
+    future_df['Change'] = [0.1 + i*0.01 for i in range(30)]
 
     # Ensures the features are in the correct order
     features = ['Date', 'Open', 'High', 'Low', 'Vol', 'Change %']
 
-    # Predict the prices for the future dates
-    future_df['Predicted Price'] = model.predict(future_df[features[1:]])
+    # Preprocess the data
+    x1, y1, scaler1 = preprocess_data(future_df)
+    x_seq1 = create_sequence(x1)
+    y_seq1 = create_sequence(y1)
+    x_lstm1, y_lstm1 = reshape_for_lstm(x_seq1, y_seq1)
+
+    # Load the trained model
+    model = load_model('best_model.h5')
+
+    # Make predictions
+    predictions1 = make_predictions(model, x_lstm1)
+
+    # Inverse transform predictions
+    original_predictions1 = inverse_transform_predictions(predictions1, scaler1)
 
     # Plot the future prediction
     st.subheader("Future Predictions")
-    future_fig = px.line(future_df, x='Date', y='Predicted Price', color=['#FF0000'])
+    future_fig = px.line(original_predictions1, color=['#FF0000'])
     st.plotly_chart(future_fig, use_contained_width=True)
 
 # Create a sidebar navigation
