@@ -302,21 +302,21 @@ def prediction_page():
     ## TO FORECAST A MONTH AFTER ##
     
     # Preprocess the data
-    x1, y1, scaler1 = preprocess_data(df_forecast)
-    x_seq1 = create_sequence(x1)
-    y_seq1 = create_sequence(y1)
-    x_lstm1, y_lstm1 = reshape_for_lstm(x_seq1, y_seq1)
+    #x1, y1, scaler1 = preprocess_data(df_forecast)
+    #x_seq1 = create_sequence(x1)
+    #y_seq1 = create_sequence(y1)
+    #x_lstm1, y_lstm1 = reshape_for_lstm(x_seq1, y_seq1)
 
     # Make predictions
-    forecasts = make_predictions(model, x_lstm1)
+    #forecasts = make_predictions(model, x_lstm1)
 
     # Inverse transform predictions
-    original_forecasts = inverse_transform_predictions(forecasts, scaler1)
+    #original_forecasts = inverse_transform_predictions(forecasts, scaler1)
 
-    forecasted = pd.DataFrame({'Forecasted Price': original_forecasts})
-    combined_df = pd.concat([new_df, forecasted], ignore_index=True)
+    #forecasted = pd.DataFrame({'Forecasted Price': original_forecasts})
+    #combined_df = pd.concat([new_df, forecasted], ignore_index=True)
 
-    st.write(combined_df)
+    #st.write(combined_df)
     
     # Plot the forecasted #
     #forecast_fig = 
