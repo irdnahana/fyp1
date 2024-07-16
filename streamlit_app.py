@@ -73,12 +73,8 @@ months = list(calendar.month_name[1:])
 monthly_avg['Month'] = pd.Categorical(monthly_avg['Month'], categories=months, ordered=True)
 monthly_avg = monthly_avg.sort_values('Month')
 
-# Custom blue shades
-custom_colors = [
-    "#82EEFD", "#63C5DA", "#0492C2", "#2832C2", "#051094", 
-    "#0A1172", "#281E5D", "#241571", "#0047AB", "#4169E1",
-    "#5D3FD3", "#6495ED"
-]
+# Create a gradient color scale from blue to purple
+custom_colors = n_colors('rgb(0, 0, 255)', 'rgb(128, 0, 128)', 12, colortype='rgb')
 
 # Create a bar chart using Plotly Graph Objects
 fig = go.Figure(data=[
