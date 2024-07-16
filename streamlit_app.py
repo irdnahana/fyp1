@@ -24,17 +24,6 @@ def load_data():
     return df
 
 df = load_data()
-
-st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+CU:wght@100..400&display=swap');
-    </style>
-    """, unsafe_allow_html=True)
-
-st.title("Custom Font Example")
-st.write("This is an example of using a custom font in Streamlit.")
-st.write("The font used here is 'Roboto' from Google Fonts.")
-
             
 def about():
     st.title("About the Project")
