@@ -61,14 +61,15 @@ selected_year = st.sidebar.selectbox("Select Year for Monthly Averages", range(1
 year_data = df[df['Date'].dt.year == selected_year]
 
 # Calculate monthly averages
-monthly_avg = year_data.groupby(year_data['Date'].dt.month)['Price'].mean()
+monthly_avg = year_data.groupby(year_data['Date'].dt.month)['Price'].mean().reset_index()
 monthly_avg.columns = ['Month', 'Price']
 
 # Map month numbers to month names
 monthly_avg['Month'] = monthly_avg['Month'].apply(lambda x: calendar.month_name[x])
 
 # Ensure 'Month' column is in the correct order
-monthly_avg['Month'] = pd.Categorical(monthly_avg['Month'], categories=list(calendar.month_name[1:]), ordered=True)
+months = list(calendar.month_name[1:])
+monthly_avg['Month'] = pd.Categorical(monthly_avg['Month'], categories=months, ordered=True)
 monthly_avg = monthly_avg.sort_values('Month')
 
 # Create a bar chart using Plotly
