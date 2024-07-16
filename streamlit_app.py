@@ -58,17 +58,17 @@ def data_dashboard():
     if not start_date == end_date:
         avg_price = date_range_data['Price'].mean()
         st.write(f"Average price is $", avg_price)
-        st.info("Explain about average price")
+        st.info("Explain about average price", icon="💡")
         
         annual_return = date_range_data["Change %"].mean() * 252 * 100
         st.write(f"Annual return is ", annual_return, "%")
-        st.info("Explain about annual return")
+        st.info("Explain about annual return", icon="💡")
         
         stdev = np.std(date_range_data["Change %"]) * np.sqrt(252) * 100
         st.write("Standard Deviation is ", stdev, "%")
-        st.info("Explain about standard deviation")
+        st.info("Explain about standard deviation", icon="💡")
 
-        st.info("Maybe add on min, max, q1, q2, q3")
+        st.info("Maybe add on min, max, q1, q2, q3", icon="💡")
         
     else:
         st.write(f"No data available for the selected date range")
