@@ -2,6 +2,7 @@ import altair as alt
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import matplotlib.pyplot as plt
 import streamlit as st
 import calendar
 import pickle
@@ -70,9 +71,20 @@ months = list(calendar.month_name[1:])
 monthly_avg.index = pd.CategoricalIndex(monthly_avg.index, categories=months, ordered=True)
 monthly_avg = monthly_avg.sort_index()
 
+# create a color map
+colors = plt.cm.Blues(np.linspace(0.3, 1, len(months)))
+
+# plotting the bar chart
+fig, ax = plot.subplots()
+bars = ax.bar(months, monthly_avg, color=colors)
+
+ax.set_xlabel('Months')
+ax.set_ylabel('Average Price')
+
+st.pyplot(fig)
 # Display the bar chart
-st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
-st.bar_chart(monthly_avg)
+#st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
+#st.bar_chart(monthly_avg)
 
 # Display raw data
 st.subheader("Raw Data")
