@@ -168,6 +168,7 @@ def data_dashboard():
     # Display the filtered dataframe
     st.subheader(f'Data from {start_date} to {end_date}')
     st.dataframe(date_range_data, use_container_width=True)
+    st.info("This table shows the raw data for the selected start and end date.")
     
 ################### PREDICTION #####################
 def prediction_page():
