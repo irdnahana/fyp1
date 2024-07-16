@@ -60,15 +60,16 @@ def data_dashboard():
         st.write(f"Average price from {start_date} to {end_date}: $", avg_price)
         st.info("Explain about average price")
         
-        #annual_return = date_range_data["Change %"].mean() * 252 * 100
-        #st.info(f"Annual return is ", annual_return, "%",
-        #       f"Annual return is counted by ... [explain about it]"
-        #       )
+        annual_return = date_range_data["Change %"].mean() * 252 * 100
+        st.write(f"Annual return is ", annual_return, "%")
+        st.info("Explain about annual return")
         
-        #stdev = np.std(date_range_data["Change %"]) * np.sqrt(252) * 100
-        #st.info("Standard Deviation is ", stdev, "%",
-        #       f"Standard deviation is counted by ,,, [explain a bit]"
-        #       )
+        stdev = np.std(date_range_data["Change %"]) * np.sqrt(252) * 100
+        st.write("Standard Deviation is ", stdev, "%")
+        st.info("Explain about standard deviation")
+
+        st.info("Maybe add on min, max, q1, q2, q3")
+        
     else:
         st.write(f"No data available for the selected date range")
 
