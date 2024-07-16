@@ -73,7 +73,8 @@ monthly_avg = monthly_avg.sort_index()
 
 # Display the bar chart
 st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
-fig = px.bar(monthly_avg, x='Month', y='Price', color='Month', color_discrete_sequence=px.colors.sequential.Blues)
+fig = px.bar(monthly_avg, x='Month', y='Price', 
+             color='Month', color_discrete_sequence=px.colors.sequential.Blues)
 st.plotly_chart(fig)
 #st.bar_chart(monthly_avg)
 
