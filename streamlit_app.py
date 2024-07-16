@@ -242,7 +242,7 @@ def prediction_page():
     x1, y1, scaler1 = preprocess_data(future_df)
     x_seq1 = create_sequence(x1)
     y_seq1 = create_sequence(y1)
-    st.write(x_1, y1)
+    st.write(x1, y1)
     x_lstm1, y_lstm1 = reshape_for_lstm(x_seq1, y_seq1)
 
     # Load the trained model
