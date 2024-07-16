@@ -314,9 +314,9 @@ def prediction_page():
     original_forecasts = inverse_transform_predictions(forecasts, scaler1)
 
     forecasted = pd.DataFrame({'Forecasted Price': original_forecasts})
-    after_df = pd.concat([new_df, original_forecasts], axis=1)
+    combined_df = pd.concat([new_df, forecasted], ignore_index=True)
 
-    st.write(after_df)
+    st.write(combined_df)
     
     # Plot the forecasted #
     #forecast_fig = 
