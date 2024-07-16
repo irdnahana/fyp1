@@ -57,8 +57,8 @@ def data_dashboard():
     # Display average price for the selected date range
     if not start_date == end_date:
         avg_price = date_range_data['Price'].mean()
-        avg_price_info = "Average price from {start_date} to {end_date}: $", avg_price, f"Average price is counted by .. [explain about average]"
-        st.info(avg_price_info)
+        st.write(f"Average price from {start_date} to {end_date}: $", avg_price)
+        st.info("Explain about average price")
         
         #annual_return = date_range_data["Change %"].mean() * 252 * 100
         #st.info(f"Annual return is ", annual_return, "%",
