@@ -160,8 +160,8 @@ def data_dashboard():
     max_month = monthly_avg.loc[monthly_avg['Price'].idxmax(), 'Month']
 
     # Display the min and max values and corresponding months
-    st.info(f" The minimum average price in {selected_year} was ${min_value:.2f} in {min_month}.", icon="💶")
-    st.info(f" The maximum average price in {selected_year} was ${max_value:.2f} in {max_month}.", icon="💶")
+    st.info(f" The minimum average price in **{selected_year}** was **${min_value:.2f}** in **{min_month}**.", icon="💶")
+    st.info(f" The maximum average price in **{selected_year}** was **${max_value:.2f}** in **{max_month}**.", icon="💶")
 
     # Display the filtered dataframe
     st.subheader(f'Data from {start_date} to {end_date}')
