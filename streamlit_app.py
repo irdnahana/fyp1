@@ -13,6 +13,16 @@ from tensorflow.keras.models import load_model, Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from sklearn.preprocessing import MinMaxScaler
 
+# Load the data from a CSV. We're caching this so it doesn't reload every time the app
+# reruns (e.g. if the user interacts with the widgets).
+@st.cache_data
+def load_data():
+    df = pd.read_csv("data/crude oil WTI 1990 - 2024.csv", parse_dates=['Date'])
+    df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', errors='coerce')
+    return df
+
+df = load_data()
+
 def data_dashboard():
     st.title("Data Dashboard")
     # Show the page title and description.
@@ -24,16 +34,6 @@ def data_dashboard():
         It shows the price of the WTI Crude Oil over the years.
         """
     )
-
-    # Load the data from a CSV. We're caching this so it doesn't reload every time the app
-    # reruns (e.g. if the user interacts with the widgets).
-    @st.cache_data
-    def load_data():
-        df = pd.read_csv("data/crude oil WTI 1990 - 2024.csv", parse_dates=['Date'])
-        df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', errors='coerce')
-        return df
-
-    df = load_data()
 
     st.sidebar.header("User Input")
     start_date = st.sidebar.date_input("Select Start Date", min_value=pd.to_datetime("1990-01-01"), max_value=pd.to_datetime("2024-05-31"))
