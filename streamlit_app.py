@@ -227,7 +227,7 @@ def prediction_page():
         'High': [72 + i for i in range(30)],
         'Low': [69 + i for i in range(30)],
         'Vol.': [1000 + i*10 for i in range(30)],
-        'Change %': [[0.1 + i*0.01 for i in range(30)]
+        'Change %': [0.1 + i*0.01 for i in range(30)]
     })
 
     # Preprocess the data
