@@ -47,6 +47,8 @@ price_fig.update_layout(
     xaxis_title='Date',
     yaxis_title='Price'
 )
+
+st.plotly_chart(price_fig, use_container_width=True)
 #st.line_chart(date_range_data.set_index('Date')['Price'], color=['#0000FF'])
 
 # Display average price for the selected date range
