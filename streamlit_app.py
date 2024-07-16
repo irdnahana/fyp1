@@ -210,7 +210,7 @@ def prediction_page():
 
 # Create a sidebar navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Data Dashbboard", "Prediction"])
+page = st.sidebar.radio("Go to", ["Data Dashboard", "Prediction"])
 
 # Render the selected page
 if page == "Data Dashboard":
