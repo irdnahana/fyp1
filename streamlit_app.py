@@ -211,6 +211,7 @@ def prediction_page():
 
     # Dataset last date
     last_date = datetime(2024, 5, 31)
+    
     # Function to generate future dates
     def generate_future_dates(start_date, days):
         return [start_date + timedelta(days=i) for i in range(1, days + 1)
