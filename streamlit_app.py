@@ -42,10 +42,11 @@ date_range_data = df[(df['Date'] >= pd.to_datetime(start_date)) & (df['Date'] <=
 
 # Display the data
 st.subheader(f"WTI Crude Oil Prices from {start_date} to {end_date}")
-price_fig = px.line(date_range_data, x='Date', y='Price', title='WTI Crude Oil Prices from {start_date} to {end_date}')
+price_fig = px.line(date_range_data, x='Date', y='Price')
 price_fig.update_layout(
     xaxis_title='Date',
-    yaxis_title='Price'
+    yaxis_title='Price',
+    color=['#0000FF']
 )
 
 st.plotly_chart(price_fig, use_container_width=True)
