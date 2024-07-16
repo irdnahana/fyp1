@@ -217,17 +217,17 @@ def prediction_page():
         return [start_date + timedelta(days=i) for i in range(1, days + 1)]
 
     # Generate dates for the next 7 days
-    future_dates = generate_future_dates(last_date, 30)
+    future_dates = generate_future_dates(last_date, 31)
 
     # Create a dataframe for the future dates with initial placeholder values #
     future_df = pd.DataFrame({
         'Date': future_dates,
-        'Price': [i for i in range(30)],
-        'Open': [70 + i for i in range(30)],
-        'High': [72 + i for i in range(30)],
-        'Low': [69 + i for i in range(30)],
-        'Vol.': [1000 + i*10 for i in range(30)],
-        'Change %': [0.1 + i*0.01 for i in range(30)]
+        'Price': [i for i in range(31)],
+        'Open': [70 + i for i in range(31)],
+        'High': [72 + i for i in range(31)],
+        'Low': [69 + i for i in range(31)],
+        'Vol.': [1000 + i*10 for i in range(31)],
+        'Change %': [0.1 + i*0.01 for i in range(31)]
     })
 
     # Preprocess the data
