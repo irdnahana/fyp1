@@ -26,7 +26,7 @@ df = load_data()
             
 def about():
     st.title("About the Project")
-    st.subheader("Overview")
+    st.subheader("1. Overview")
     st.write(
         """
         West Texas Intermediate (WTI) crude oil is a major benchmark for oil prices 
@@ -36,7 +36,7 @@ def about():
         markets, inflation, and geopolitical dynamics.
         """
     )
-    st.subheader("Purpose")
+    st.subheader("2. Purpose")
     st.write(
         """
         This dashboard is designed to provide an interactive and comprehensive view 
@@ -45,7 +45,7 @@ def about():
         monthly prices, annual returns, and the volatility of WTI crude oil.
         """
     )
-    st.subheader("Usage Instruction")
+    st.subheader("3. Usage Instruction")
     st.write(
         """
         - There are 2 pages the user can navigate to; The Dashboard page and the Predictions page.
@@ -55,6 +55,13 @@ def about():
         - Aside from that, users can select the year that they want to view the monthly average
          prices for the selected year. The minimum and maximum value and the corresponding month 
          will show for the year as well.
+        """
+    )
+    st.subheader("4. Additional Information")
+    st.write(
+        """
+        - **Data Source**: The data used in this dashboard is source from Investing.com.
+        - **Period Covered**: The dashboard covers the WTI crude oil prices from 01/01/1990 to 31/05/2024.
         """
     )
 
