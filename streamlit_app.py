@@ -34,6 +34,11 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
+
+st.title("Custom Font Example")
+st.write("This is an example of using a custom font in Streamlit.")
+st.write("The font used here is 'Roboto' from Google Fonts.")
+
             
 def about():
     st.title("About the Project")
