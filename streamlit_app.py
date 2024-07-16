@@ -49,12 +49,8 @@ def about():
     st.write(
         """
         - There are 2 pages the user can navigate to; The Dashboard page and the Predictions page.
-        - In the Dashboard page the user can select the specific start and end date to view the
-        historical price of the WTI crude oil. Based on the selected range, the user are also able
-        to view the average price, annual return, standard deviation.
-        - Aside from that, users can select the year that they want to view the monthly average
-         prices for the selected year. The minimum and maximum value and the corresponding month 
-         will show for the year as well.
+        - The Dashboard page explores in detail on the WTI crude oil dataset.
+        - The Prediction page showcases the predicted price resulted from the trained model.
         """
     )
     st.subheader("4. Additional Information 💻")
@@ -72,6 +68,12 @@ def data_dashboard():
         """
         This app visualizes data from the WTI Futures Oil Prices.
         It shows the price of the WTI Crude Oil over the years.
+        In the Dashboard page the user can select the specific start and end date to view the
+        historical price of the WTI crude oil. Based on the selected range, the user are also able
+        to view the average price, annual return, standard deviation.
+        Aside from that, users can select the year that they want to view the monthly average
+        prices for the selected year. The minimum and maximum value and the corresponding month 
+        will show for the year as well.
         """
     )
 
