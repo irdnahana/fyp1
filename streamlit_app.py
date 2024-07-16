@@ -23,8 +23,6 @@ def load_data():
 
 df = load_data()
 
-st.set_page_config(page_title="Predicting Energy Commodity Prices using Variants of LSTM Models", page_icon="🛢️")
-
 def data_dashboard():
     # Show the page title and description.
     st.title("🛢️ WTI Crude Oil Prices Dashboard")
