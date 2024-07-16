@@ -57,7 +57,7 @@ def about():
          will show for the year as well.
         """
     )
-    st.subheader("4. Additional Information ℹ️")
+    st.subheader("4. Additional Information 💻")
     st.write(
         """
         - **Data Source**: The data used in this dashboard is source from Investing.com.
