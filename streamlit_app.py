@@ -182,7 +182,7 @@ def prediction_page():
     #new_df_melted = pd.melt(new_df, id_vars['Date'], value_vars=['Actual Price', 'Predicted Price'], var_name='Category', value_name='Actual, Predicted')
 
     st.subheader("Predicted Price Compared to Actual Price")
-    st.write(new_df)
+    st.dataframe(new_df, use_container_width=True)
 
     # Comparison with actual data
     st.subheader('Actual vs Predicted')
