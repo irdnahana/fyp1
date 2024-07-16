@@ -234,7 +234,6 @@ def prediction_page():
     x1, y1, scaler1 = preprocess_data(future_df)
     x_seq1 = create_sequence(x1)
     y_seq1 = create_sequence(y1)
-    st.write(x_seq1, y_seq1)
     x_lstm1, y_lstm1 = reshape_for_lstm(x_seq1, y_seq1)
 
     # Load the trained model
@@ -248,7 +247,7 @@ def prediction_page():
 
     # Plot the future prediction
     st.subheader("Future Predictions")
-    future_fig = px.line(original_predictions1, color=['#FF0000'])
+    future_fig = px.line(original_predictions1)
     st.plotly_chart(future_fig, use_contained_width=True)
 
 # Create a sidebar navigation
