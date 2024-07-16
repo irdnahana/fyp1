@@ -76,6 +76,10 @@ monthly_avg = monthly_avg.sort_values('Month')
 fig = px.bar(monthly_avg, x='Month', y='Price', 
              color='Month', color_discrete_sequence=px.colors.sequential.Blues)
 
+# Update the figure to remove the legend and add more shades of blue
+fig.update_layout(showlegend=False)
+fig.update_traces(marker=dict(colorscale='Blues'))
+
 # Display the bar chart in Streamlit
 st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
 st.plotly_chart(fig)
