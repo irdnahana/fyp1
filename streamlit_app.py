@@ -172,6 +172,12 @@ def data_dashboard():
 ################### PREDICTION #####################
 def prediction_page():
     st.title("🔍 Prediction")
+    st.write(
+        """
+        This page shows the predicted prices alongside the actual historical prices 
+        for the WTI crude oil using the trained model.
+        """
+    )
     
     def preprocess_data(data):
         feature_cols = ['Open', 'High', 'Low', 'Vol.', 'Change %']
