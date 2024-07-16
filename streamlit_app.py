@@ -75,7 +75,7 @@ monthly_avg = monthly_avg.sort_index()
 colors = plt.cm.Blues(np.linspace(0.3, 1, len(months)))
 
 # plotting the bar chart
-fig, ax = plot.subplots()
+fig, ax = plt.subplots()
 bars = ax.bar(months, monthly_avg, color=colors)
 
 ax.set_xlabel('Months')
