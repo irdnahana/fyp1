@@ -171,7 +171,7 @@ def data_dashboard():
     
 ################### PREDICTION #####################
 def prediction_page():
-    st.title("Prediction Page")
+    st.title("Prediction", icon='🔍')
     
     def preprocess_data(data):
         feature_cols = ['Open', 'High', 'Low', 'Vol.', 'Change %']
@@ -263,12 +263,12 @@ def prediction_page():
 
 # Create a sidebar navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["About the Project", "Data Dashboard", "Prediction"])
+page = st.sidebar.radio("Go to", ["About", "Dashboard", "Prediction"])
 
 # Render the selected page
-if page == "About the Project":
+if page == "About":
     about()
-elif page == "Data Dashboard":
+elif page == "Dashboard":
     data_dashboard()
 elif page == "Prediction":
     prediction_page()
