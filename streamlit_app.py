@@ -22,7 +22,14 @@ def load_data():
     df = df.ffill()
     return df
 
+def load_data1():
+    df = pd.read_csv("data/crude oil WTI forecast.csv", parse_dates=['Date'])
+    df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', errors='coerce')
+    df = df.ffill()
+    return df
+
 df = load_data()
+df_forecast = load_data1()
             
 def about():
     st.title("⚙️ About the Project")
@@ -291,6 +298,28 @@ def prediction_page():
     st.subheader("Predicted Price Compared to Actual Price")
     st.dataframe(new_df, use_container_width=True)
     st.info("This table shows the actual price of crude oil and the predicted price to provide side by side comparison.")
+
+    ## TO FORECAST A MONTH AFTER ##
+    
+    # Preprocess the data
+    x1, y1, scaler1 = preprocess_data(df_forecast)
+    x_seq1 = create_sequence(x1)
+    y_seq1 = create_sequence(y1)
+    x_lstm1, y_lstm1 = reshape_for_lstm(x_seq1, y_seq1)
+
+    # Make predictions
+    forecasts = make_predictions(model, x_lstm1)
+
+    # Inverse transform predictions
+    original_forecasts = inverse_transform_predictions(forecasts, scaler1)
+
+    forecasted = pd.DataFrame({'Forecasted Price': original_forecasts})
+    after_df = pd.concat([new_df, original_forecasts], axis=1)
+
+    st.write(after_df)
+    
+    # Plot the forecasted #
+    #forecast_fig = 
 
 # Create a sidebar navigation
 st.sidebar.title("Navigation")
