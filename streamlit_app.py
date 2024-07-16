@@ -100,8 +100,12 @@ st.plotly_chart(fig)
 #st.bar_chart(monthly_avg)
 
 # Display raw data
-st.subheader("Raw Data")
-st.write(df)
+#st.subheader("Raw Data")
+#st.write(date_range_data.set_index('Date')['Price'])
+
+# Display the filtered dataframe
+st.subheader(f'Data from {start_date} to {end_date}')
+st.write(date_range_data)
 
 ################### PREDICTION #####################
 
