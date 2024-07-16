@@ -177,8 +177,8 @@ st.write(new_df)
 # Comparison with actual data
 st.subheader('Actual vs Predicted')
 chart = alt.Chart(new_df_melted).mark_line().encode(
-    x='Date'#'Date:T',  # T specifies temporal axis
-    y='Actual Price, Predicted Price' #alt.Y('Actual Price', axis=alt.Axis(title='Value')),
+    x='Date',#'Date:T',  # T specifies temporal axis
+    y='Actual Price, Predicted Price', #alt.Y('Actual Price', axis=alt.Axis(title='Value')),
     color='category:N' #alt.value('blue')  # Set line color to blue for actual
 ).properties(
     title='Actual vs Predicted'
