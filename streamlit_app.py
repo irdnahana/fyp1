@@ -198,10 +198,10 @@ def prediction_page():
     
         return x, y, scaler
 
-    def create_sequence(data):
+    def create_sequence(data, seq_length=30):
         sequences = []
-        for i in range(len(data) - 30):
-            sequences.append(data[i:i + 30])
+        for i in range(len(data) - seq_length):
+            sequences.append(data[i:i + seq_length])
         return np.array(sequences)
 
     def reshape_for_lstm(x, y):
