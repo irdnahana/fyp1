@@ -97,15 +97,15 @@ def data_dashboard():
     # Display average price for the selected date range
     if not start_date == end_date:
         avg_price = date_range_data['Price'].mean()
-        st.write(f"Average price is ${avg_price:.2f}.")
+        st.write(f"Average price is **${avg_price:.2f}.**")
         st.info(" Average price tells you the typical price during that period.", icon="💡")
         
         annual_return = date_range_data["Change %"].mean() * 252 * 100
-        st.write(f"Annual return is {annual_return:.2f}%.")
+        st.write(f"Annual return is **{annual_return:.2f}%.**")
         st.info(" Annual return tells you how much you might expect to gain or lose in a year if the price changes continued.", icon="💡")
         
         stdev = np.std(date_range_data["Change %"]) * np.sqrt(252) * 100
-        st.write(f"Standard Deviation is {stdev:.2f}%.")
+        st.write(f"Standard Deviation is **{stdev:.2f}%.**")
         st.info(" Standard deviation tells you how much the prices varied, indicating how volatile or stable the prices were.", icon="💡")
         
     else:
