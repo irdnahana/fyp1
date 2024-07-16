@@ -241,6 +241,7 @@ def prediction_page():
 
     # Make predictions
     predictions1 = make_predictions(model, x_lstm1)
+    st.write(predictions1)
 
     # Inverse transform predictions
     original_predictions1 = inverse_transform_predictions(predictions1, scaler1)
