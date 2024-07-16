@@ -58,17 +58,17 @@ def data_dashboard():
     if not start_date == end_date:
         avg_price = date_range_data['Price'].mean()
         st.write(f"Average price is ${avg_price:.2f}")
-        st.info("Explain about average price", icon="💡")
+        st.info(" Explain about average price", icon="💡")
         
         annual_return = date_range_data["Change %"].mean() * 252 * 100
         st.write(f"Annual return is {annual_return:.2f}%")
-        st.info("Explain about annual return", icon="💡")
+        st.info(" Explain about annual return", icon="💡")
         
         stdev = np.std(date_range_data["Change %"]) * np.sqrt(252) * 100
         st.write(f"Standard Deviation is {stdev:.2f}%")
-        st.info("Explain about standard deviation", icon="💡")
+        st.info(" Explain about standard deviation", icon="💡")
 
-        st.info("Maybe add on min, max, q1, q2, q3", icon="💡")
+        st.info(" Maybe add on min, max, q1, q2, q3", icon="💡")
         
     else:
         st.info(f"No data available for the selected date range.")
@@ -123,8 +123,8 @@ def data_dashboard():
     max_month = monthly_avg.loc[monthly_avg['Price'].idxmax(), 'Month']
 
     # Display the min and max values and corresponding months
-    st.info(f"The minimum average price in {selected_year} was ${min_value:.2f} in {min_month}.", icon="💶")
-    st.info(f"The maximum average price in {selected_year} was ${max_value:.2f} in {max_month}.", icon="💶")
+    st.info(f" The minimum average price in {selected_year} was ${min_value:.2f} in {min_month}.", icon="💶")
+    st.info(f" The maximum average price in {selected_year} was ${max_value:.2f} in {max_month}.", icon="💶")
 
     # Display the filtered dataframe
     st.subheader(f'Data from {start_date} to {end_date}')
