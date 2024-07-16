@@ -115,11 +115,16 @@ def data_dashboard():
     # Display the bar chart in Streamlit
     st.subheader(f"Average Monthly WTI Crude Oil Prices for {selected_year}")
     st.plotly_chart(fig)
-    #st.bar_chart(monthly_avg)
 
-    # Display raw data
-    #st.subheader("Raw Data")
-    #st.write(date_range_data.set_index('Date')['Price'])
+    # Calculate min and max values and corresponding months
+    min_value = monthly_avg['Price'].min()
+    max_value = monthly_avg['Price'].max()
+    min_month = monthly_avg.loc[monthly_avg['Price'].idxmin(), 'Month']
+    max_month = monthly_avg.loc[monthly_avg['Price'].idxmax(), 'Month']
+
+    # Display the min and max values and corresponding months
+    st.write(f"The minimum average price in {selected_year} was {min_value:.2f} in {min_month}.")
+    st.write(f"The maximum average price in {selected_year} was {max_value:.2f} in {max_month}.")
 
     # Display the filtered dataframe
     st.subheader(f'Data from {start_date} to {end_date}')
