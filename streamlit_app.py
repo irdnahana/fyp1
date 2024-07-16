@@ -25,8 +25,8 @@ def load_data():
 df = load_data()
             
 def about():
-    st.title("About the Project")
-    st.subheader("1. Overview")
+    st.title("⚙️ About the Project")
+    st.subheader("1. Overview 💰")
     st.write(
         """
         West Texas Intermediate (WTI) crude oil is a major benchmark for oil prices 
@@ -36,7 +36,7 @@ def about():
         markets, inflation, and geopolitical dynamics.
         """
     )
-    st.subheader("2. Purpose")
+    st.subheader("2. Purpose 🎯")
     st.write(
         """
         This dashboard is designed to provide an interactive and comprehensive view 
@@ -45,7 +45,7 @@ def about():
         monthly prices, annual returns, and the volatility of WTI crude oil.
         """
     )
-    st.subheader("3. Usage Instruction")
+    st.subheader("3. Usage Instruction 🛠️")
     st.write(
         """
         - There are 2 pages the user can navigate to; The Dashboard page and the Predictions page.
@@ -57,7 +57,7 @@ def about():
          will show for the year as well.
         """
     )
-    st.subheader("4. Additional Information")
+    st.subheader("4. Additional Information ℹ️")
     st.write(
         """
         - **Data Source**: The data used in this dashboard is source from Investing.com.
@@ -147,7 +147,6 @@ def data_dashboard():
     # Update layout to remove legend and improve appearance
     fig.update_layout(
         showlegend=False,
-        title=f"Average Monthly WTI Crude Oil Prices for {selected_year}",
         xaxis_title="Month",
         yaxis_title="Price"
     )
