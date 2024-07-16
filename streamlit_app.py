@@ -12,6 +12,7 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model, Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from sklearn.preprocessing import MinMaxScaler
+from datetime import datetime, timedelta
 
 # Load the data from a CSV. We're caching this so it doesn't reload every time the app
 # reruns (e.g. if the user interacts with the widgets).
@@ -207,7 +208,43 @@ def prediction_page():
 
     # Display the chart in Streamlit
     st.altair_chart(final_chart, use_container_width=True)
-    #st.altair_chart(chart, use_container_width=True)
+
+    # Dataset last date
+    last_date = datetime(2024, 5, 31)
+    # Function to generate future dates
+    def generate_future_dates(start_date, days):
+        return [start_date + timedelta(days=i) for i in range(1, days + 1)
+
+    # Generate dates for the next 7 days
+    future_dates = generate_future_dates(last_date, 7)
+
+    # Create a dataframe for the future dates with initial placeholder values #
+    future_df = pd.DataFrame({
+        'Date': future_dates,
+        'Open': [0]*7,
+        'High': [0]*7,
+        'Low': [0]*7,
+        'Vol.': [0]*7,
+        'Change %': [0]*7,
+    })
+    # For demonstration purposes, let's assume you have some method to estimate these features
+    # Here, we will use the same values as a placeholder, replace these with your actual estimates
+    future_df['Open'] = [70 + i for i in range(7)]  # Example values
+    future_df['High'] = [72 + i for i in range(7)]  # Example values
+    future_df['Low'] = [69 + i for i in range(7)]   # Example values
+    future_df['Vol'] = [1000 + i*10 for i in range(7)]  # Example values
+    future_df['Change'] = [0.1 + i*0.01 for i in range(7)]
+
+    # Ensures the features are in the correct order
+    features = ['Date', 'Open', 'High', 'Low', 'Vol', 'Change %']
+
+    # Predict the prices for the future dates
+    future_df['Predicted Price'] = model.predict(future_df[features[1:]])
+
+    # Plot the future prediction
+    st.subheader("Future Predictions")
+    future_fig = px.line(future_df, x='Date', y='Predicted Price', color=['#FF0000'])
+    st.plotly_chart(future_fig, use_contained_width=True)
 
 # Create a sidebar navigation
 st.sidebar.title("Navigation")
