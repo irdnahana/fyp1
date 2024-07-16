@@ -7,7 +7,6 @@ from plotly.colors import n_colors
 import matplotlib.pyplot as plt
 import streamlit as st
 import calendar
-import pickle
 import tensorflow as tf
 from tensorflow.keras.models import load_model, Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
@@ -49,11 +48,11 @@ def about():
     st.subheader("Usage Instruction")
     st.write(
         """
-        1. There are 2 pages the user can navigate to; The Dashboard page and the Predictions page.
-        2. In the Dashboard page the user can select the specific start and end date to view the
+        - There are 2 pages the user can navigate to; The Dashboard page and the Predictions page.
+        - In the Dashboard page the user can select the specific start and end date to view the
         historical price of the WTI crude oil. Based on the selected range, the user are also able
         to view the average price, annual return, standard deviation.
-        3. Aside from that, users can select the year that they want to view the monthly average
+        - Aside from that, users can select the year that they want to view the monthly average
          prices for the selected year. The minimum and maximum value and the corresponding month 
          will show for the year as well.
         """
