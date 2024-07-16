@@ -296,7 +296,7 @@ def prediction_page():
     )
 
     st.subheader("Predicted Price Compared to Actual Price")
-    st.dataframe(new_df, use_container_width=True)
+    st.dataframe(new_df[:-31], use_container_width=True)
     st.info("This table shows the actual price of crude oil and the predicted price to provide side by side comparison.")
 
     ## TO FORECAST A MONTH AFTER ##
