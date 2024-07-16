@@ -45,10 +45,10 @@ st.subheader(f"WTI Crude Oil Prices from {start_date} to {end_date}")
 price_fig = px.line(date_range_data, x='Date', y='Price')
 price_fig.update_layout(
     xaxis_title='Date',
-    yaxis_title='Price',
-    color=['#0000FF']
+    yaxis_title='Price'
 )
 
+price_fig.update_traces(line=dict(color='blue'))
 st.plotly_chart(price_fig, use_container_width=True)
 #st.line_chart(date_range_data.set_index('Date')['Price'], color=['#0000FF'])
 
